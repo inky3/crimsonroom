@@ -7,6 +7,7 @@ type Shape = {
   stem?: { from: number; to: number };
   ice?: boolean;
   handle?: string;
+  steam?: boolean;
 };
 
 const shapes: Record<Exclude<GlassKey, "beer">, Shape> = {
@@ -46,6 +47,18 @@ const shapes: Record<Exclude<GlassKey, "beer">, Shape> = {
     liquidTop: 44,
     rim: { x: 88, y: 24 },
     stem: { from: 94, to: 140 },
+  },
+  shot: {
+    body: "M42 96 H78 L74 142 Q73.6 146 69 146 H51 Q46.4 146 46 142 Z",
+    liquidTop: 106,
+    rim: { x: 76, y: 96 },
+  },
+  cup: {
+    body: "M30 70 H90 L85 140 Q84.6 144 80 144 H40 Q35.4 144 35 140 Z",
+    liquidTop: 80,
+    rim: { x: 88, y: 70 },
+    handle: "M89 84 H99 Q107 84 107 94 V114 Q107 124 97 124 H85",
+    steam: true,
   },
 };
 
@@ -96,6 +109,13 @@ export default function GlassArt({ glass, color, garnish, id, label, className }
       </g>
 
       <path d={shape.body} fill="none" stroke={outline} strokeWidth="1.6" strokeLinejoin="round" />
+      {shape.steam && (
+        <g fill="none" stroke="var(--bone)" strokeWidth="1.6" strokeLinecap="round" opacity="0.45">
+          <path d="M48 58 Q42 48 48 40 Q54 32 48 24" />
+          <path d="M62 58 Q56 48 62 40 Q68 32 62 24" />
+          <path d="M76 58 Q70 48 76 40 Q82 32 76 24" />
+        </g>
+      )}
       {shape.handle && <path d={shape.handle} fill="none" stroke={outline} strokeWidth="5" strokeLinecap="round" />}
       {shape.stem && (
         <>

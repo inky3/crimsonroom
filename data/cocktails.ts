@@ -1,13 +1,16 @@
 import { t } from "@/lib/i18n";
 import type { Cocktail, Ingredient } from "@/lib/types";
 import { th } from "./th";
+import { moreCocktails } from "./more";
+import { thMore } from "./more-th";
+import { pantryNeeds } from "./pantry";
 
 const ing = (amount: string, en: string): Ingredient => ({ amount: t(amount), name: t(en) });
 
 /*
  * HOW TO ADD A RECIPE
  * Copy one entry, change the fields, and save. Then add its Thai text in
- * data/th.ts under the same slug. Until you do, the site shows English in
+ * data/th.ts under the same slug, and list what it needs in data/pantry.ts. Until you do, the site shows English in
  * Thai mode, so nothing breaks.
  *
  * Taste values run from 0 to 5.
@@ -657,7 +660,7 @@ const base: Cocktail[] = [
 
 /** Adds the Thai text from data/th.ts to a recipe. Recipes without Thai stay English. */
 function withThai(c: Cocktail): Cocktail {
-  const tr = th[c.slug];
+  const tr = th[c.slug] ?? thMore[c.slug];
   if (!tr) return c;
   if (tr.ingredients.length !== c.ingredients.length || tr.steps.length !== c.steps.length) {
     throw new Error(`Thai text for "${c.slug}" must have the same number of ingredients and steps as the English recipe.`);
@@ -675,6 +678,14 @@ function withThai(c: Cocktail): Cocktail {
   };
 }
 
-export const cocktails: Cocktail[] = base.map(withThai);
+export const cocktails: Cocktail[] = [...base, ...moreCocktails].map(withThai);
+
+// Stop the build if a recipe is missing its pantry list, or if two recipes share a slug.
+const seen = new Set<string>();
+for (const c of cocktails) {
+  if (seen.has(c.slug)) throw new Error(`Duplicate recipe slug "${c.slug}".`);
+  seen.add(c.slug);
+  if (!pantryNeeds[c.slug]) throw new Error(`Add "${c.slug}" to pantryNeeds in data/pantry.ts.`);
+}
 
 export const getCocktail = (slug: string) => cocktails.find((c) => c.slug === slug);

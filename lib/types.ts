@@ -8,7 +8,7 @@ export type TasteKey = (typeof tasteKeys)[number];
 /** Each value is 0 to 5. */
 export type Taste = Record<TasteKey, number>;
 
-export type GlassKey = "coupe" | "martini" | "rocks" | "highball" | "mug" | "wine" | "beer";
+export type GlassKey = "coupe" | "martini" | "rocks" | "highball" | "mug" | "wine" | "beer" | "shot" | "cup";
 export type MethodKey = "shake" | "stir" | "build" | "blend" | "muddle";
 export type ToolKey =
   | "shaker"
@@ -32,8 +32,9 @@ export type SpiritKey =
   | "wine"
   | "winecooler"
   | "soju"
-  | "thai";
-export type CategoryKey = "classic" | "spy-soju";
+  | "thai"
+  | "none";
+export type CategoryKey = "classic" | "spy-soju" | "mocktail";
 
 export type Ingredient = { amount: Text; name: Text };
 

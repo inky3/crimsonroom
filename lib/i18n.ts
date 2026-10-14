@@ -60,6 +60,24 @@ type Strings = {
   bitter: string;
   rough: string;
   strength: string;
+  navHelp: string;
+  navPantry: string;
+  navGuide: string;
+  navFavourites: string;
+  helpTitle: string;
+  helpIntro: string;
+  homeHelpTitle: string;
+  homeHelpText: string;
+  homeHelpCta: string;
+  goodToKnow: string;
+  nonAlcVersion: string;
+  difficulty: string;
+  easy: string;
+  medium: string;
+  hard: string;
+  about: string;
+  minutes: string;
+  toolGuide: string;
 };
 
 export const ui: Record<Locale, Strings> = {
@@ -112,6 +130,24 @@ export const ui: Record<Locale, Strings> = {
     bitter: "Bitter",
     rough: "Rough",
     strength: "Strength",
+    navHelp: "Help me choose",
+    navPantry: "What can I make?",
+    navGuide: "Bar guide",
+    navFavourites: "Favourites",
+    helpTitle: "Not sure what to make?",
+    helpIntro: "Answer a few quick questions and we will suggest drinks. You do not need to know anything about cocktails.",
+    homeHelpTitle: "At a party and not sure what to make?",
+    homeHelpText: "Tell us the mood, how strong you want it, and how much effort you can manage. We will suggest something straight away.",
+    homeHelpCta: "Help me choose",
+    goodToKnow: "Good to know",
+    nonAlcVersion: "Non-alcoholic version",
+    difficulty: "Difficulty",
+    easy: "Easy",
+    medium: "Medium",
+    hard: "Takes practice",
+    about: "about",
+    minutes: "min",
+    toolGuide: "Tool guide",
   },
   th: {
     siteName: "Crimson Room",
@@ -161,5 +197,23 @@ export const ui: Record<Locale, Strings> = {
     bitter: "ขม",
     rough: "บาดคอ",
     strength: "ความแรง",
+    navHelp: "ช่วยเลือกเมนู",
+    navPantry: "ทำอะไรได้บ้าง",
+    navGuide: "คู่มือบาร์",
+    navFavourites: "รายการโปรด",
+    helpTitle: "ยังไม่รู้จะทำอะไรดี?",
+    helpIntro: "ตอบคำถามสั้น ๆ ไม่กี่ข้อ แล้วเราจะแนะนำเมนูให้ ไม่ต้องรู้เรื่องค็อกเทลมาก่อนเลย",
+    homeHelpTitle: "อยู่ในปาร์ตี้ แต่ไม่รู้จะทำอะไรดี?",
+    homeHelpText: "บอกเราว่าอยากได้อารมณ์ไหน แรงแค่ไหน และมีแรงทำแค่ไหน แล้วเราจะแนะนำเมนูให้ทันที",
+    homeHelpCta: "ช่วยเลือกเมนูให้หน่อย",
+    goodToKnow: "ควรรู้ไว้",
+    nonAlcVersion: "สูตรไม่มีแอลกอฮอล์",
+    difficulty: "ความยาก",
+    easy: "ง่าย",
+    medium: "ปานกลาง",
+    hard: "ต้องฝึกหน่อย",
+    about: "ประมาณ",
+    minutes: "นาที",
+    toolGuide: "คู่มืออุปกรณ์",
   },
 };

@@ -12,11 +12,13 @@ export const spirits: Record<SpiritKey, Text> = {
   winecooler: t("Wine cooler (Spy)", "ไวน์คูลเลอร์ (Spy)"),
   soju: t("Soju", "โซจู"),
   thai: t("Thai spirits", "เหล้าไทย"),
+  none: t("No alcohol", "ไม่มีแอลกอฮอล์"),
 };
 
 export const categories: Record<CategoryKey, Text> = {
   classic: t("Classic", "คลาสสิก"),
   "spy-soju": t("Spy and soju", "สไปและโซจู"),
+  mocktail: t("Mocktail", "ม็อกเทล"),
 };
 
 export const glasses: Record<GlassKey, Text> = {
@@ -27,6 +29,8 @@ export const glasses: Record<GlassKey, Text> = {
   mug: t("Copper mug", "แก้วมักทองแดง"),
   wine: t("Wine glass", "แก้วไวน์"),
   beer: t("Beer glass", "แก้วเบียร์"),
+  shot: t("Shot glass", "แก้วช็อต"),
+  cup: t("Heatproof cup", "แก้วทนความร้อน"),
 };
 
 export const methods: Record<MethodKey, Text> = {
