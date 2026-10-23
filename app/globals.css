@@ -160,3 +160,16 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
 .taste-coach-advice h3 { margin: 0 0 .4rem; font-family: var(--display); font-size: 1.45rem; }
 .taste-coach-advice p { margin: 0; }
 .taste-coach-note { margin-bottom: 0; }
+
+
+/* Descriptive taste profile */
+.taste-profile { margin: 1.25rem 0 1.5rem; padding: 1.25rem; border: 1px solid var(--line); background: linear-gradient(135deg, rgba(157, 18, 48, .12), transparent 68%), var(--surface); }
+.taste-profile-eyebrow { display: block; color: var(--crimson-hot); text-transform: uppercase; letter-spacing: .13em; font-size: .72rem; font-weight: 700; margin-bottom: .5rem; }
+.taste-profile-heading h3 { font-family: var(--display); font-size: clamp(1.35rem, 3vw, 1.8rem); line-height: 1.2; margin: 0 0 1.1rem; }
+.taste-profile-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.4rem; }
+.taste-profile-grid h4 { margin: 0 0 .35rem; font-size: .9rem; color: var(--bone); }
+.taste-profile-grid p { margin: 0; color: var(--muted); font-size: .95rem; }
+.taste-profile-cues { list-style: none; display: flex; flex-wrap: wrap; gap: .45rem; padding: 0; margin: 1rem 0 0; }
+.taste-profile-cues li { border: 1px solid var(--line); padding: .28rem .6rem; font-size: .82rem; color: var(--bone); }
+.taste-profile-note { color: var(--muted); font-size: .8rem; margin: 1rem 0 0; }
+@media (max-width: 35rem) { .taste-profile-grid { grid-template-columns: 1fr; } .taste-profile { padding: 1rem; } }
