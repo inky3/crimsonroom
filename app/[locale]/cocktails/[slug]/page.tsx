@@ -5,6 +5,7 @@ import CocktailCard from "@/components/CocktailCard";
 import GlassArt from "@/components/GlassArt";
 import TasteGauges from "@/components/TasteGauges";
 import TasteCoach from "@/components/TasteCoach";
+import TasteProfile from "@/components/TasteProfile";
 import { cocktails, getCocktail } from "@/data/cocktails";
 import { glasses, methods, spirits, tools } from "@/data/reference";
 import { isLocale, locales, pick, ui } from "@/lib/i18n";
@@ -101,6 +102,7 @@ export default async function CocktailPage({
 
           <section>
             <h2>{s.taste}</h2>
+            <TasteProfile slug={c.slug} locale={locale} />
             <TasteGauges taste={c.taste} labels={tasteLabels(locale)} />
             <p className="note">{s.tasteNote}</p>
             <TasteCoach locale={locale} />
