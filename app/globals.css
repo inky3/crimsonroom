@@ -147,3 +147,16 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
   .field input, .field select { min-width: 0; width: 100%; }
   .field { flex: 1 1 12rem; }
 }
+
+
+/* Taste troubleshooting coach */
+.taste-coach { margin-top: 2rem; padding: 1.25rem; border: 1px solid var(--line); background: var(--surface); }
+.taste-coach h2 { margin-bottom: .6rem; }
+.taste-coach-intro, .taste-coach-note { color: var(--muted); font-size: .95rem; }
+.taste-coach-options { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1rem; }
+.taste-coach-option { background: transparent; color: var(--bone); border: 1px solid var(--line); border-radius: 2px; padding: .55rem .8rem; font: inherit; font-size: .95rem; cursor: pointer; }
+.taste-coach-option:hover, .taste-coach-option[aria-pressed="true"] { border-color: var(--crimson-hot); background: rgba(157, 18, 48, .2); }
+.taste-coach-advice { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.taste-coach-advice h3 { margin: 0 0 .4rem; font-family: var(--display); font-size: 1.45rem; }
+.taste-coach-advice p { margin: 0; }
+.taste-coach-note { margin-bottom: 0; }
