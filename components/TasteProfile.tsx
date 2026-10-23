@@ -1,6 +1,6 @@
 "use client";
 
-import type { Locale } from "@/lib/types";
+import type { Locale, Taste } from "@/lib/types";
 
 type Profile = { headline: string; journey: string; finish: string; cues: string[] };
 
@@ -52,10 +52,37 @@ const labels = {
   th: { title: "โปรไฟล์รสชาติ", expected: "รสชาติที่ควรสัมผัส", finish: "รสชาติหลังกลืน", note: "การรับรสเป็นเรื่องส่วนบุคคลและวัตถุดิบแตกต่างกันได้ ใช้คำอธิบายนี้เป็นแนวทาง ไม่ใช่เกณฑ์ตัดสินตายตัว" },
 };
 
-export default function TasteProfile({ slug, locale }: { slug: string; locale: Locale }) {
-  const profile = profiles[slug]?.[locale];
-  if (!profile) return null;
+export default function TasteProfile({ slug, locale, taste, ingredients }: { slug: string; locale: Locale; taste: Taste; ingredients: string[] }) {
   const t = labels[locale];
+  const profile = profiles[slug]?.[locale] ?? (() => {
+    const level = (value: number, low: string, medium: string, high: string) => value <= 1 ? low : value <= 3 ? medium : high;
+    const descriptors = locale === "en"
+      ? {
+          sweet: level(taste.sweet, "very dry", "gently sweet", "sweet-forward"),
+          sour: level(taste.sour, "low in acidity", "brightly balanced", "tart and citrus-led"),
+          bitter: level(taste.bitter, "little bitterness", "a touch of bitterness", "distinctly bitter"),
+          strength: level(taste.strength, "light in alcohol character", "noticeably spirit-led", "bold and spirit-forward"),
+          journey: `Expect ${level(taste.sweet, "little sweetness", "some sweetness", "pronounced sweetness")}, ${level(taste.sour, "gentle acidity", "a fresh acidic lift", "a pronounced tart edge")}, and ${level(taste.bitter, "minimal bitterness", "some bitter complexity", "a strong bitter note")}.`,
+          finish: `The overall impression should be ${level(taste.strength, "light and easy-going", "balanced with a clear spirit character", "intense and spirit-forward")}. Adjust to your preference after tasting.`,
+          note: "General profile inferred from the recipe's taste ratings; a more specific tasting note has not been written for this cocktail yet."
+        }
+      : {
+          sweet: level(taste.sweet, "หวานน้อยมาก", "หวานพอดี", "เน้นความหวาน"),
+          sour: level(taste.sour, "มีความเปรี้ยวน้อย", "เปรี้ยวสดชื่นอย่างสมดุล", "เปรี้ยวชัด"),
+          bitter: level(taste.bitter, "แทบไม่มีรสขม", "มีรสขมเล็กน้อย", "มีรสขมเด่น"),
+          strength: level(taste.strength, "สัมผัสแอลกอฮอล์เบา", "รับรู้รสสุราได้ชัด", "เน้นรสสุราอย่างเข้มข้น"),
+          journey: `คาดว่าจะได้ความ${level(taste.sweet, "หวานน้อย", "หวานพอดี", "หวานเด่น")} ความ${level(taste.sour, "เปรี้ยวน้อย", "เปรี้ยวสดชื่น", "เปรี้ยวชัด")} และ${level(taste.bitter, "ขมน้อย", "ขมเล็กน้อย", "ขมเด่น")}.`,
+          finish: `ภาพรวมควรให้สัมผัสแบบ${level(taste.strength, "เบาและดื่มง่าย", "สมดุลแต่ยังรับรู้รสสุรา", "เข้มข้นและเน้นรสสุรา")} ปรับตามความชอบหลังจากชิม`,
+          note: "คำอธิบายนี้ประเมินจากคะแนนรสชาติของสูตร ยังไม่มีบันทึกการชิมเฉพาะสำหรับค็อกเทลแก้วนี้"
+        };
+    return {
+      headline: locale === "en" ? `A ${descriptors.sweet}, ${descriptors.sour} cocktail` : `ค็อกเทลที่${descriptors.sweet}และ${descriptors.sour}`,
+      journey: descriptors.journey,
+      finish: descriptors.finish,
+      cues: ingredients.slice(0, 3),
+      _note: descriptors.note,
+    };
+  })();
 
   return (
     <section className="taste-profile" aria-labelledby="taste-profile-title">
@@ -76,7 +103,7 @@ export default function TasteProfile({ slug, locale }: { slug: string; locale: L
       <ul className="taste-profile-cues">
         {profile.cues.map((cue) => <li key={cue}>{cue}</li>)}
       </ul>
-      <p className="taste-profile-note">{t.note}</p>
+      <p className="taste-profile-note">{"_note" in profile ? profile._note : t.note}</p>
     </section>
   );
 }
