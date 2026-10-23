@@ -122,7 +122,7 @@ export const ui: Record<Locale, Strings> = {
     originHouse:
       "This is our own mix. It has no documented history, just a good way to drink it.",
     tasteNote:
-      "Ratings go from 0 to 5 and are our own judgement for one standard serve. Rough is the harsh bite of the alcohol. Strength is how quickly the drink gets you drunk.",
+      "Ratings go from 0 to 5 and describe our estimated flavour profile for one standard serve. Rough means the harsh bite of alcohol; strength means perceived alcohol intensity, not ABV or how quickly someone becomes intoxicated.",
     responsibly: "Please drink responsibly. For adults of legal drinking age only.",
     language: "Language",
     sweet: "Sweet",
@@ -189,7 +189,7 @@ export const ui: Record<Locale, Strings> = {
       "นี่คือเรื่องราวที่เล่าต่อกันมา หลายเมนูยังมีข้อถกเถียงเรื่องต้นกำเนิด จึงควรอ่านเป็นเรื่องเล่ามากกว่าข้อเท็จจริง",
     originHouse: "นี่คือสูตรผสมของเราเอง ไม่มีประวัติที่บันทึกไว้ เป็นเพียงวิธีดื่มที่เราแนะนำ",
     tasteNote:
-      "คะแนน 0 ถึง 5 เป็นการประเมินของเราสำหรับเครื่องดื่มหนึ่งแก้วตามสูตร \"บาดคอ\" คือความร้อนแรงของแอลกอฮอล์ ส่วน \"ความแรง\" คือความเร็วที่ทำให้เมา",
+      "คะแนน 0 ถึง 5 เป็นการประเมินรสชาติของเครื่องดื่มหนึ่งแก้วตามสูตร \"บาดคอ\" หมายถึงความรู้สึกแสบหรือร้อนจากแอลกอฮอล์ ส่วน \"ความแรง\" หมายถึงความรู้สึกว่าแอลกอฮอล์เด่นเพียงใด ไม่ใช่ค่า ABV หรือการคาดการณ์ว่าจะเมาเร็วแค่ไหน",
     responsibly: "โปรดดื่มอย่างมีความรับผิดชอบ สำหรับผู้ที่มีอายุตามกฎหมายเท่านั้น",
     language: "ภาษา",
     sweet: "หวาน",
