@@ -13,7 +13,7 @@ type MatchMode = "all" | "some";
 
 export default function PantryFinder({ locale }: { locale: Locale }) {
   const s = ui[locale];
-  const [selected, setSelected] = useState<PantryKey[]>([]);
+  const [selected, setSelected] = useState<PantryKey[]>(["gin", "rum-white", "rum-aged", "vodka", "lime"]);
   const [shaker, setShaker] = useState<ShakerFilter>("any");
   const [match, setMatch] = useState<MatchMode>("all");
   const [showPantry, setShowPantry] = useState(true);
