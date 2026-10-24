@@ -21,6 +21,9 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   const [match, setMatch] = useState<MatchMode>("all");
   const [surprise, setSurprise] = useState<(typeof cocktails)[number] | null>(null);
   const [motionEnabled, setMotionEnabled] = useState(false);
+  const [shaking, setShaking] = useState(false);
+  const [shakeFrame, setShakeFrame] = useState(0);
+  const shakeTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastShakeAt = useRef(0);
   const router = useRouter();
 
@@ -67,7 +70,32 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
     if (recipeResults.length === 0) return;
     const chosen = recipeResults[Math.floor(Math.random() * recipeResults.length)];
     setSurprise(chosen.cocktail);
+    setShakeFrame((frame) => frame + 1);
   }, [recipeResults]);
+
+  const startShakeReveal = useCallback(() => {
+    if (recipeResults.length === 0 || shaking) return;
+    setShaking(true);
+    setSurprise(null);
+    setShakeFrame((frame) => frame + 1);
+    let swings = 0;
+    if (shakeTimer.current) window.clearInterval(shakeTimer.current);
+    shakeTimer.current = window.setInterval(() => {
+      swings += 1;
+      setShakeFrame((frame) => frame + 1);
+      if (swings >= 5) {
+        if (shakeTimer.current) window.clearInterval(shakeTimer.current);
+        shakeTimer.current = null;
+        const chosen = recipeResults[Math.floor(Math.random() * recipeResults.length)];
+        setSurprise(chosen.cocktail);
+        setShaking(false);
+      }
+    }, 260);
+  }, [recipeResults, shaking]);
+
+  useEffect(() => () => {
+    if (shakeTimer.current) window.clearInterval(shakeTimer.current);
+  }, []);
 
   const enableMotion = async () => {
     const motionEvent = DeviceMotionEvent as typeof DeviceMotionEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
@@ -78,21 +106,31 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   };
 
   useEffect(() => {
-    if ("DeviceMotionEvent" in window) setMotionEnabled(true);
+    if (!("DeviceMotionEvent" in window)) return;
+    setMotionEnabled(true);
   }, []);
 
   useEffect(() => {
     if (!motionEnabled) return;
+    let lastTrigger = 0;
+    let previousMagnitude = 0;
     const handleMotion = (event: DeviceMotionEvent) => {
-      const a = event.accelerationIncludingGravity;
-      if (!a) return;
-      const magnitude = Math.sqrt((a.x ?? 0) ** 2 + (a.y ?? 0) ** 2 + (a.z ?? 0) ** 2);
+      const a = event.acceleration;
+      const g = event.accelerationIncludingGravity;
+      const magnitude = a
+        ? Math.sqrt((a.x ?? 0) ** 2 + (a.y ?? 0) ** 2 + (a.z ?? 0) ** 2)
+        : g ? Math.sqrt((g.x ?? 0) ** 2 + (g.y ?? 0) ** 2 + (g.z ?? 0) ** 2) : 0;
       const now = Date.now();
-      if (magnitude > 22 && now - lastShakeAt.current > 1800) { lastShakeAt.current = now; pickRandomDrink(); }
+      const delta = Math.abs(magnitude - previousMagnitude);
+      previousMagnitude = magnitude;
+      if ((magnitude > 10 || delta > 7) && now - lastTrigger > 2400) {
+        lastTrigger = now;
+        startShakeReveal();
+      }
     };
-    window.addEventListener("devicemotion", handleMotion);
+    window.addEventListener("devicemotion", handleMotion, { passive: true });
     return () => window.removeEventListener("devicemotion", handleMotion);
-  }, [motionEnabled, pickRandomDrink]);
+  }, [motionEnabled, startShakeReveal]);
 
   const toggle = (key: PantryKey) => setSelected((current) => current.includes(key) ? current.filter((item) => item !== key) : [...current, key]);
   const reset = () => { setSelected(DEFAULT_INGREDIENTS); setShaker("any"); setMatch("all"); };
@@ -151,7 +189,7 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
         <div className="pantry-surprise-copy"><span className="pantry-surprise-icon" aria-hidden="true">✦</span><div><strong>{locale === "en" ? "Feeling lucky?" : "อยากลองอะไรใหม่ ๆ ไหม?"}</strong><p>{locale === "en" ? "Shake your phone or let the bar choose." : "เขย่าโทรศัพท์ หรือให้บาร์เลือกให้"}</p></div></div>
         <div className="pantry-surprise-actions">
           <button type="button" className="pantry-shake-button" onClick={enableMotion}>{motionEnabled ? (locale === "en" ? "Shake enabled" : "เปิดการเขย่าแล้ว") : (locale === "en" ? "Enable shake" : "เปิดการเขย่า")}</button>
-          <button type="button" className="pantry-surprise-button" onClick={pickRandomDrink}>{locale === "en" ? "Surprise me ↗" : "สุ่มเมนู ↗"}</button>
+          <button type="button" className="pantry-surprise-button" onClick={startShakeReveal}>{locale === "en" ? "Shake to choose ↗" : "เขย่าเพื่อสุ่ม ↗"}</button>
         </div>
       </section>
 
@@ -188,16 +226,16 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
         )}
       </section>
       {surprise && <div className="pantry-modal-backdrop" role="presentation" onClick={() => setSurprise(null)}>
-        <section className="pantry-surprise-modal pantry-glass-shake" role="dialog" aria-modal="true" aria-labelledby="pantry-surprise-title" onClick={(event) => event.stopPropagation()}>
+        <section key={shakeFrame} className={`pantry-surprise-modal ${shaking ? "pantry-shaker-active" : "pantry-glass-shake"}`} role="dialog" aria-modal="true" aria-labelledby="pantry-surprise-title" onClick={(event) => event.stopPropagation()}>
           <button type="button" className="pantry-modal-close" aria-label={locale === "en" ? "Close" : "ปิด"} onClick={() => setSurprise(null)}>×</button>
-          <span className="pantry-surprise-eyebrow">{locale === "en" ? "THE BAR HAS CHOSEN" : "บาร์เลือกให้คุณแล้ว"}</span>
-          <h2 id="pantry-surprise-title">{pick(surprise.name, locale)}</h2>
-          <p className="pantry-surprise-base">{toCard(surprise, locale).baseLabel}</p>
-          <p className="pantry-surprise-description">{locale === "en" ? "This drink matches your current ingredients and filters." : "เมนูนี้ตรงกับวัตถุดิบและตัวกรองที่คุณเลือก"}</p>
-          <div className="pantry-modal-actions">
+          <div className="pantry-shaker-illustration" aria-hidden="true"><span className="pantry-shaker-cap" /><span className="pantry-shaker-body"><i /><i /><i /></span><span className="pantry-shaker-base" /></div><span className="pantry-surprise-eyebrow">{shaking ? (locale === "en" ? "SHAKING UP YOUR NEXT DRINK" : "กำลังเขย่าสุ่มเมนู") : (locale === "en" ? "THE BAR HAS CHOSEN" : "บาร์เลือกให้คุณแล้ว")}</span>
+          <h2 id="pantry-surprise-title">{shaking ? (locale === "en" ? "Mixing your options…" : "กำลังเลือกเมนู…") : pick(surprise.name, locale)}</h2>
+          {!shaking && <p className="pantry-surprise-base">{toCard(surprise, locale).baseLabel}</p>}
+          {!shaking && <p className="pantry-surprise-description">{locale === "en" ? "This drink matches your current ingredients and filters." : "เมนูนี้ตรงกับวัตถุดิบและตัวกรองที่คุณเลือก"}</p>}
+          {!shaking && <div className="pantry-modal-actions">
             <button type="button" className="pantry-surprise-button" onClick={() => router.push(`/${locale}/cocktails/${surprise.slug}`)}>{locale === "en" ? "Let’s try" : "ลองทำแก้วนี้"}</button>
             <button type="button" className="pantry-not-now" onClick={() => setSurprise(null)}>{locale === "en" ? "Not interested" : "ไม่สนใจ"}</button>
-          </div>
+          </div>}
         </section>
       </div>}
     </main>
