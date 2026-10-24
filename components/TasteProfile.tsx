@@ -103,7 +103,7 @@ export default function TasteProfile({ slug, locale, taste, ingredients }: { slu
       <ul className="taste-profile-cues">
         {profile.cues.map((cue) => <li key={cue}>{cue}</li>)}
       </ul>
-      <p className="taste-profile-note">{"_note" in profile ? profile._note : t.note}</p>
+      <p className="taste-profile-note">{("_note" in profile && typeof profile._note === "string") ? profile._note : t.note}</p>
     </section>
   );
 }
