@@ -259,3 +259,8 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
   .pantry-results-heading p { font-size: .8rem; }
   .pantry-results .grid { margin-top: .85rem; gap: .7rem; }
 }
+
+.pantry-group-meta { display: inline-flex; align-items: center; gap: .65rem; flex-shrink: 0; }
+.pantry-group-selected { color: var(--crimson-hot); font-size: .75rem; font-weight: 500; }
+.pantry-group-chevron { color: var(--muted); font-size: 1.1rem; font-weight: 400; transition: transform .15s; }
+.pantry-group[open] .pantry-group-chevron { transform: rotate(180deg); }
