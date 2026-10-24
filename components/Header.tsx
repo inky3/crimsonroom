@@ -13,6 +13,7 @@ export default function Header({ locale }: { locale: Locale }) {
         </Link>
         <nav className="nav" aria-label="Main">
           <Link href={`/${locale}/cocktails`}>{s.navCocktails}</Link>
+          <Link href={`/${locale}/pantry`}>{s.navPantry}</Link>
           <Link href={`/${locale}/spy-soju`}>{s.navSpy}</Link>
         </nav>
         <LangSwitch locale={locale} label={s.language} />
