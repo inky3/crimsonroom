@@ -76,7 +76,8 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   const startShakeReveal = useCallback(() => {
     if (recipeResults.length === 0 || shaking) return;
     setShaking(true);
-    setSurprise(null);
+    const firstPick = recipeResults[Math.floor(Math.random() * recipeResults.length)];
+    setSurprise(firstPick.cocktail);
     setShakeFrame((frame) => frame + 1);
     let swings = 0;
     if (shakeTimer.current) window.clearInterval(shakeTimer.current);
