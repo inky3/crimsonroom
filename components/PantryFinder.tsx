@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import CocktailCard from "@/components/CocktailCard";
 import { cocktails } from "@/data/cocktails";
 import { pantryGroups, pantryNeeds, type Need, type PantryKey } from "@/data/pantry";
@@ -18,6 +19,10 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   const [preferencesReady, setPreferencesReady] = useState(false);
   const [shaker, setShaker] = useState<ShakerFilter>("any");
   const [match, setMatch] = useState<MatchMode>("all");
+  const [surprise, setSurprise] = useState<(typeof cocktails)[number] | null>(null);
+  const [motionEnabled, setMotionEnabled] = useState(false);
+  const lastShakeAt = useRef(0);
+  const router = useRouter();
 
   useEffect(() => {
     try {
@@ -57,6 +62,33 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   const availableLabels = useMemo(() => new Map(
     pantryGroups.flatMap((group) => group.items.map((item) => [item.key, pick(item.label, locale)] as const))
   ), [locale]);
+
+  const pickRandomDrink = useCallback(() => {
+    if (recipeResults.length === 0) return;
+    const chosen = recipeResults[Math.floor(Math.random() * recipeResults.length)];
+    setSurprise(chosen.cocktail);
+  }, [recipeResults]);
+
+  const enableMotion = async () => {
+    const motionEvent = DeviceMotionEvent as typeof DeviceMotionEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
+    if (typeof motionEvent.requestPermission === "function") {
+      try { setMotionEnabled((await motionEvent.requestPermission()) === "granted"); }
+      catch { setMotionEnabled(false); }
+    } else { setMotionEnabled("DeviceMotionEvent" in window); }
+  };
+
+  useEffect(() => {
+    if (!motionEnabled) return;
+    const handleMotion = (event: DeviceMotionEvent) => {
+      const a = event.accelerationIncludingGravity;
+      if (!a) return;
+      const magnitude = Math.sqrt((a.x ?? 0) ** 2 + (a.y ?? 0) ** 2 + (a.z ?? 0) ** 2);
+      const now = Date.now();
+      if (magnitude > 22 && now - lastShakeAt.current > 1800) { lastShakeAt.current = now; pickRandomDrink(); }
+    };
+    window.addEventListener("devicemotion", handleMotion);
+    return () => window.removeEventListener("devicemotion", handleMotion);
+  }, [motionEnabled, pickRandomDrink]);
 
   const toggle = (key: PantryKey) => setSelected((current) => current.includes(key) ? current.filter((item) => item !== key) : [...current, key]);
   const reset = () => { setSelected(DEFAULT_INGREDIENTS); setShaker("any"); setMatch("all"); };
@@ -111,6 +143,14 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
         </div>
       </section>
 
+      <section className="pantry-surprise-bar" aria-label={locale === "en" ? "Random cocktail" : "สุ่มค็อกเทล"}>
+        <div className="pantry-surprise-copy"><span className="pantry-surprise-icon" aria-hidden="true">✦</span><div><strong>{locale === "en" ? "Feeling lucky?" : "อยากลองอะไรใหม่ ๆ ไหม?"}</strong><p>{locale === "en" ? "Shake your phone or let the bar choose." : "เขย่าโทรศัพท์ หรือให้บาร์เลือกให้"}</p></div></div>
+        <div className="pantry-surprise-actions">
+          <button type="button" className="pantry-shake-button" onClick={enableMotion}>{motionEnabled ? (locale === "en" ? "Shake enabled" : "เปิดการเขย่าแล้ว") : (locale === "en" ? "Enable shake" : "เปิดการเขย่า")}</button>
+          <button type="button" className="pantry-surprise-button" onClick={pickRandomDrink}>{locale === "en" ? "Surprise me ↗" : "สุ่มเมนู ↗"}</button>
+        </div>
+      </section>
+
       <section className="pantry-results" aria-live="polite">
         <div className="pantry-results-heading">
           <div>
@@ -143,6 +183,19 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
           </div>
         )}
       </section>
+      {surprise && <div className="pantry-modal-backdrop" role="presentation" onClick={() => setSurprise(null)}>
+        <section className="pantry-surprise-modal" role="dialog" aria-modal="true" aria-labelledby="pantry-surprise-title" onClick={(event) => event.stopPropagation()}>
+          <button type="button" className="pantry-modal-close" aria-label={locale === "en" ? "Close" : "ปิด"} onClick={() => setSurprise(null)}>×</button>
+          <span className="pantry-surprise-eyebrow">{locale === "en" ? "THE BAR HAS CHOSEN" : "บาร์เลือกให้คุณแล้ว"}</span>
+          <h2 id="pantry-surprise-title">{pick(surprise.name, locale)}</h2>
+          <p className="pantry-surprise-base">{toCard(surprise, locale).baseLabel}</p>
+          <p className="pantry-surprise-description">{locale === "en" ? "This drink matches your current ingredients and filters." : "เมนูนี้ตรงกับวัตถุดิบและตัวกรองที่คุณเลือก"}</p>
+          <div className="pantry-modal-actions">
+            <button type="button" className="pantry-surprise-button" onClick={() => router.push(`/${locale}/cocktails/${surprise.slug}`)}>{locale === "en" ? "Brew it" : "เริ่มทำแก้วนี้"}</button>
+            <button type="button" className="pantry-not-now" onClick={() => setSurprise(null)}>{locale === "en" ? "Not now" : "ไว้ก่อน"}</button>
+          </div>
+        </section>
+      </div>}
     </main>
   );
 }
