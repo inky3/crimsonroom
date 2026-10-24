@@ -173,3 +173,41 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
 .taste-profile-cues li { border: 1px solid var(--line); padding: .28rem .6rem; font-size: .82rem; color: var(--bone); }
 .taste-profile-note { color: var(--muted); font-size: .8rem; margin: 1rem 0 0; }
 @media (max-width: 35rem) { .taste-profile-grid { grid-template-columns: 1fr; } .taste-profile { padding: 1rem; } }
+
+/* Ingredient-first pantry finder */
+.pantry-finder { padding-top: 2.5rem; }
+.pantry-kicker { margin: 0 0 .45rem; color: var(--crimson-hot); font-size: .76rem; letter-spacing: .16em; font-weight: 700; }
+.pantry-intro { max-width: 42rem; margin: -.65rem 0 2rem; color: var(--muted); }
+.pantry-panel { border: 1px solid var(--line); background: linear-gradient(135deg, rgba(157,18,48,.11), transparent 60%), var(--surface); padding: clamp(1rem, 3vw, 1.5rem); }
+.pantry-panel-top, .pantry-results-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.pantry-panel-top h2, .pantry-results-heading h2 { margin: 0; }
+.pantry-panel-top p, .pantry-results-heading p { margin: .35rem 0 0; font-size: .92rem; }
+.pantry-groups { display: grid; gap: 1.3rem; margin-top: 1.5rem; }
+.pantry-group { border: 0; border-top: 1px solid var(--line); margin: 0; padding: 1rem 0 0; min-width: 0; }
+.pantry-group legend { padding: 0 .5rem 0 0; font-weight: 700; font-size: .98rem; }
+.pantry-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.pantry-chip { display: inline-flex; align-items: center; gap: .45rem; background: transparent; color: var(--bone); border: 1px solid var(--line); padding: .48rem .72rem; font: inherit; font-size: .9rem; line-height: 1.35; cursor: pointer; text-align: left; transition: background .15s, border-color .15s; }
+.pantry-chip:hover { border-color: var(--crimson-hot); }
+.pantry-chip[aria-pressed="true"] { background: rgba(157,18,48,.25); border-color: var(--crimson-hot); }
+.pantry-chip-mark { color: var(--crimson-hot); min-width: .8rem; font-weight: 700; }
+.pantry-collapse { margin-top: 1.2rem; border: 0; border-top: 1px solid var(--line); padding: .9rem 0 0; width: 100%; background: none; color: var(--muted); text-align: left; font: inherit; font-size: .88rem; cursor: pointer; }
+.pantry-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.4rem 0 2rem; }
+.pantry-control { display: flex; flex-direction: column; gap: .35rem; flex: 1 1 14rem; }
+.pantry-control label { color: var(--muted); font-size: .88rem; }
+.pantry-control select { width: 100%; min-height: 2.8rem; background: var(--surface); color: var(--bone); border: 1px solid var(--line); padding: .6rem .75rem; font: inherit; }
+.pantry-results { border-top: 1px solid var(--line); padding-top: 1.6rem; }
+.pantry-count { border: 1px solid var(--line); padding: .3rem .65rem; white-space: nowrap; color: var(--crimson-hot); font-size: .88rem; }
+.pantry-results .grid { margin-top: 1.3rem; }
+.pantry-result { min-width: 0; }
+.pantry-missing, .pantry-ready { margin: .6rem 0 0; padding-top: .6rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; line-height: 1.5; }
+.pantry-missing strong { color: var(--crimson-hot); }
+.pantry-ready { color: var(--bone); }
+.pantry-empty { margin-top: 1.2rem; padding: 1.5rem; border: 1px dashed var(--line); }
+.pantry-empty h3 { margin: 0; font-family: var(--display); font-size: 1.5rem; }
+.pantry-empty p { margin: .5rem 0 0; color: var(--muted); }
+@media (max-width: 35rem) {
+  .pantry-panel-top, .pantry-results-heading { gap: .7rem; }
+  .pantry-panel-top { flex-direction: column; }
+  .pantry-results-heading { align-items: center; }
+  .pantry-chip { font-size: .85rem; padding: .45rem .58rem; }
+}
