@@ -78,6 +78,10 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   };
 
   useEffect(() => {
+    if ("DeviceMotionEvent" in window) setMotionEnabled(true);
+  }, []);
+
+  useEffect(() => {
     if (!motionEnabled) return;
     const handleMotion = (event: DeviceMotionEvent) => {
       const a = event.accelerationIncludingGravity;
@@ -184,15 +188,15 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
         )}
       </section>
       {surprise && <div className="pantry-modal-backdrop" role="presentation" onClick={() => setSurprise(null)}>
-        <section className="pantry-surprise-modal" role="dialog" aria-modal="true" aria-labelledby="pantry-surprise-title" onClick={(event) => event.stopPropagation()}>
+        <section className="pantry-surprise-modal pantry-glass-shake" role="dialog" aria-modal="true" aria-labelledby="pantry-surprise-title" onClick={(event) => event.stopPropagation()}>
           <button type="button" className="pantry-modal-close" aria-label={locale === "en" ? "Close" : "ปิด"} onClick={() => setSurprise(null)}>×</button>
           <span className="pantry-surprise-eyebrow">{locale === "en" ? "THE BAR HAS CHOSEN" : "บาร์เลือกให้คุณแล้ว"}</span>
           <h2 id="pantry-surprise-title">{pick(surprise.name, locale)}</h2>
           <p className="pantry-surprise-base">{toCard(surprise, locale).baseLabel}</p>
           <p className="pantry-surprise-description">{locale === "en" ? "This drink matches your current ingredients and filters." : "เมนูนี้ตรงกับวัตถุดิบและตัวกรองที่คุณเลือก"}</p>
           <div className="pantry-modal-actions">
-            <button type="button" className="pantry-surprise-button" onClick={() => router.push(`/${locale}/cocktails/${surprise.slug}`)}>{locale === "en" ? "Brew it" : "เริ่มทำแก้วนี้"}</button>
-            <button type="button" className="pantry-not-now" onClick={() => setSurprise(null)}>{locale === "en" ? "Not now" : "ไว้ก่อน"}</button>
+            <button type="button" className="pantry-surprise-button" onClick={() => router.push(`/${locale}/cocktails/${surprise.slug}`)}>{locale === "en" ? "Let’s try" : "ลองทำแก้วนี้"}</button>
+            <button type="button" className="pantry-not-now" onClick={() => setSurprise(null)}>{locale === "en" ? "Not interested" : "ไม่สนใจ"}</button>
           </div>
         </section>
       </div>}
