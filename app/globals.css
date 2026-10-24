@@ -232,7 +232,7 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
 .pantry-group-summary { display: flex; justify-content: space-between; align-items: center; gap: .75rem; padding: .1rem 0 .75rem; font-weight: 700; font-size: .96rem; cursor: pointer; list-style: none; }
 .pantry-group-summary::-webkit-details-marker { display: none; }
 .pantry-group-summary > span { color: var(--crimson-hot); font-size: 1.15rem; font-weight: 400; transition: transform .15s; }
-.pantry-group[open] .pantry-group-summary > span { transform: rotate(180deg); }
+.pantry-group[open] .pantry-group-chevron { transform: rotate(180deg); }
 .pantry-group:not([open]) { padding-bottom: 0; }
 .pantry-group[open] .pantry-options { padding-bottom: .25rem; }
 @media (max-width: 35rem) {
@@ -288,3 +288,10 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
 .pantry-modal-actions>button { flex:1; }
 @keyframes pantry-pop-in { from { opacity:0; transform:translateY(10px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
 @media(max-width:35rem) { .pantry-surprise-bar { align-items:stretch; flex-direction:column; gap:.8rem; padding:.8rem; } .pantry-surprise-actions { display:grid; grid-template-columns:1fr 1fr; } .pantry-shake-button,.pantry-surprise-button { padding:.55rem .4rem; font-size:.8rem; } .pantry-modal-actions { flex-direction:column; } }
+
+/* Only rotate the accordion chevron, never the category title. */
+.pantry-group-summary .pantry-group-title { color: var(--bone); font-size: inherit; font-weight: 700; transform: none; }
+.pantry-group-summary .pantry-group-meta { color: var(--muted); font-size: inherit; transform: none; }
+.pantry-glass-shake { animation: pantry-pop-in .22s ease-out, pantry-glass-wiggle .5s ease-in-out .18s 2; transform-origin: center; }
+@keyframes pantry-glass-wiggle { 0%,100% { transform: rotate(0deg) translateX(0); } 20% { transform: rotate(-1.1deg) translateX(-2px); } 40% { transform: rotate(1.1deg) translateX(2px); } 60% { transform: rotate(-.7deg) translateX(-1px); } 80% { transform: rotate(.7deg) translateX(1px); } }
+@media (prefers-reduced-motion: reduce) { .pantry-glass-shake { animation: none; } }
