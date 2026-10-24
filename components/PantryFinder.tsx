@@ -171,13 +171,13 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
               return <article className="pantry-result" key={cocktail.slug}>
                 <CocktailCard item={item} locale={locale} />
                 {match === "some" && missing.length > 0 && <div className="pantry-missing">
-                  <strong>{locale === "en" ? "Missing:" : "ยังขาด:"}</strong>{" "}
+                  <strong>{locale === "en" ? "Still needed:" : "ยังต้องมี:"}</strong>{" "}
                   {missing.map((need: Need) => {
                     const options = Array.isArray(need) ? need : [need];
                     return options.map((key) => availableLabels.get(key) ?? key).join(locale === "en" ? " or " : " หรือ ");
                   }).join(", ")}
                 </div>}
-                {match === "some" && missing.length === 0 && <p className="pantry-ready">✓ {locale === "en" ? "You have everything" : "มีวัตถุดิบครบแล้ว"}</p>}
+                {match === "some" && missing.length === 0 && <p className="pantry-ready">✓ {locale === "en" ? "Ready to mix" : "พร้อมผสมแล้ว"}</p>}
               </article>;
             })}
           </div>
