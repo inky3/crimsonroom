@@ -22,7 +22,6 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   const [surprise, setSurprise] = useState<(typeof cocktails)[number] | null>(null);
   const [motionEnabled, setMotionEnabled] = useState(false);
   const [shaking, setShaking] = useState(false);
-  const [shakeFrame, setShakeFrame] = useState(0);
   const shakeTimer = useRef<number | null>(null);
   const lastShakeAt = useRef(0);
   const router = useRouter();
@@ -70,7 +69,6 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
     if (recipeResults.length === 0) return;
     const chosen = recipeResults[Math.floor(Math.random() * recipeResults.length)];
     setSurprise(chosen.cocktail);
-    setShakeFrame((frame) => frame + 1);
   }, [recipeResults]);
 
   const startShakeReveal = useCallback(() => {
@@ -78,12 +76,10 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
     setShaking(true);
     const firstPick = recipeResults[Math.floor(Math.random() * recipeResults.length)];
     setSurprise(firstPick.cocktail);
-    setShakeFrame((frame) => frame + 1);
     let swings = 0;
     if (shakeTimer.current) window.clearInterval(shakeTimer.current);
     shakeTimer.current = window.setInterval(() => {
       swings += 1;
-      setShakeFrame((frame) => frame + 1);
       if (swings >= 5) {
         if (shakeTimer.current) window.clearInterval(shakeTimer.current);
         shakeTimer.current = null;
@@ -249,7 +245,7 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
         )}
       </section>
       {surprise && <div className="pantry-modal-backdrop" role="presentation" onClick={() => setSurprise(null)}>
-        <section key={shakeFrame} className={`pantry-surprise-modal ${shaking ? "pantry-shaker-active" : "pantry-glass-shake"}`} role="dialog" aria-modal="true" aria-labelledby="pantry-surprise-title" onClick={(event) => event.stopPropagation()}>
+        <section className={`pantry-surprise-modal ${shaking ? "pantry-shaker-active" : "pantry-glass-shake"}`} role="dialog" aria-modal="true" aria-labelledby="pantry-surprise-title" onClick={(event) => event.stopPropagation()}>
           <button type="button" className="pantry-modal-close" aria-label={locale === "en" ? "Close" : "ปิด"} onClick={() => setSurprise(null)}>×</button>
           <div className="pantry-shaker-illustration" aria-hidden="true"><span className="pantry-shaker-cap" /><span className="pantry-shaker-body"><i /><i /><i /></span><span className="pantry-shaker-base" /></div><span className="pantry-surprise-eyebrow">{shaking ? (locale === "en" ? "SHAKING UP YOUR NEXT DRINK" : "กำลังเขย่าสุ่มเมนู") : (locale === "en" ? "THE BAR HAS CHOSEN" : "บาร์เลือกให้คุณแล้ว")}</span>
           <h2 id="pantry-surprise-title">{shaking ? (locale === "en" ? "Mixing your options…" : "กำลังเลือกเมนู…") : pick(surprise.name, locale)}</h2>
