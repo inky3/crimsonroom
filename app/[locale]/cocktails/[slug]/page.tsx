@@ -105,7 +105,7 @@ export default async function CocktailPage({
             <TasteProfile slug={c.slug} locale={locale} taste={c.taste} ingredients={c.ingredients.map((i) => pick(i.name, locale))} />
             <TasteGauges taste={c.taste} labels={tasteLabels(locale)} />
             <p className="note">{s.tasteNote}</p>
-            <TasteCoach locale={locale} />
+            <TasteCoach locale={locale} ingredients={c.ingredients.map((ingredient) => ingredient.name.en)} method={c.method} />
 
             <h2>{s.method}</h2>
             <ol className="steps">
