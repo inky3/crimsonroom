@@ -226,3 +226,36 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
   .pantry-segmented-match { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pantry-segmented-match .pantry-method { min-width: 0; }
 }
+
+/* Compact mobile-first ingredient finder */
+.pantry-group { padding-top: .75rem; }
+.pantry-group-summary { display: flex; justify-content: space-between; align-items: center; gap: .75rem; padding: .1rem 0 .75rem; font-weight: 700; font-size: .96rem; cursor: pointer; list-style: none; }
+.pantry-group-summary::-webkit-details-marker { display: none; }
+.pantry-group-summary > span { color: var(--crimson-hot); font-size: 1.15rem; font-weight: 400; transition: transform .15s; }
+.pantry-group[open] .pantry-group-summary > span { transform: rotate(180deg); }
+.pantry-group:not([open]) { padding-bottom: 0; }
+.pantry-group[open] .pantry-options { padding-bottom: .25rem; }
+@media (max-width: 35rem) {
+  .pantry-finder { padding-top: 1.25rem; }
+  .pantry-finder .page-title { margin-top: .15rem; margin-bottom: .55rem; font-size: clamp(2rem, 9vw, 2.7rem); }
+  .pantry-intro { margin: 0 0 1rem; font-size: .9rem; line-height: 1.45; }
+  .pantry-panel { padding: .9rem; }
+  .pantry-panel-top { flex-direction: row; align-items: center; gap: .5rem; }
+  .pantry-panel-top h2 { font-size: 1.15rem; }
+  .pantry-panel-top p { display: none; }
+  .pantry-panel-top .link-btn { white-space: nowrap; font-size: .8rem; }
+  .pantry-groups { gap: .2rem; margin-top: .75rem; }
+  .pantry-group { padding-top: .55rem; }
+  .pantry-group-summary { padding: .45rem 0; font-size: .9rem; }
+  .pantry-options { gap: .35rem; }
+  .pantry-chip { padding: .36rem .5rem; font-size: .78rem; gap: .3rem; }
+  .pantry-chip-mark { min-width: .65rem; }
+  .pantry-controls { gap: .7rem; margin: .85rem 0 1.2rem; }
+  .pantry-control { flex-basis: 100%; gap: .35rem; }
+  .pantry-control-label { font-size: .8rem; }
+  .pantry-method { min-height: 2.55rem; }
+  .pantry-results { padding-top: 1rem; }
+  .pantry-results-heading h2 { font-size: 1.2rem; }
+  .pantry-results-heading p { font-size: .8rem; }
+  .pantry-results .grid { margin-top: .85rem; gap: .7rem; }
+}
