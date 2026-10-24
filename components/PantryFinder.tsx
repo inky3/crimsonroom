@@ -79,7 +79,7 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
         <div className="pantry-groups">
           {pantryGroups.map((group) => (
             <details className="pantry-group" key={group.key} open={group.key === "spirits"}>
-              <summary className="pantry-group-summary">{pick(group.title, locale)} <span aria-hidden="true">⌄</span></summary>
+              <summary className="pantry-group-summary"><span className="pantry-group-title">{pick(group.title, locale)}</span><span className="pantry-group-meta">{group.items.filter((item) => selected.includes(item.key)).length > 0 && <span className="pantry-group-selected">{group.items.filter((item) => selected.includes(item.key)).length} {locale === "en" ? "selected" : "รายการ"}</span>}<span className="pantry-group-chevron" aria-hidden="true">⌄</span></span></summary>
               <div className="pantry-options">
                 {group.items.map((item) => {
                   const active = selected.includes(item.key);
