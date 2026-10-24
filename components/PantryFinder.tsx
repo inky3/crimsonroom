@@ -16,7 +16,6 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   const [selected, setSelected] = useState<PantryKey[]>(["gin", "rum-white", "rum-aged", "vodka", "lime"]);
   const [shaker, setShaker] = useState<ShakerFilter>("any");
   const [match, setMatch] = useState<MatchMode>("all");
-  const [showPantry, setShowPantry] = useState(true);
 
   const recipeResults = useMemo(() => {
     return cocktails.map((cocktail) => {
@@ -70,9 +69,6 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
             </fieldset>
           ))}
         </div>
-        <button type="button" className="pantry-collapse" aria-expanded={showPantry} onClick={() => setShowPantry(!showPantry)}>
-          {showPantry ? (locale === "en" ? "Hide ingredient list" : "ซ่อนรายการวัตถุดิบ") : (locale === "en" ? "Edit ingredients" : "แก้ไขวัตถุดิบ")}
-        </button>
       </section>
 
       <section className="pantry-controls" aria-label={locale === "en" ? "Recipe filters" : "ตัวกรองสูตร"}>
