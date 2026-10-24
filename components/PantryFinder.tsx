@@ -66,7 +66,7 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
     <main className="container section pantry-finder">
       <p className="pantry-kicker">{locale === "en" ? "YOUR HOME BAR" : "บาร์ที่บ้านของคุณ"}</p>
       <h1 className="page-title">{locale === "en" ? "What can I make?" : "มีอะไร ทำเมนูอะไรได้บ้าง?"}</h1>
-      <p className="pantry-intro">{locale === "en" ? "Select what you have. We’ll match it against every recipe and show what you can make right now." : "เลือกวัตถุดิบที่มี แล้วเราจะเทียบกับทุกสูตรเพื่อแสดงเมนูที่ทำได้ตอนนี้"}</p>
+      <p className="pantry-intro">{locale === "en" ? "Pick what’s on your shelf. Find your next pour." : "เลือกวัตถุดิบที่มี แล้วค้นหาแก้วถัดไปของคุณ"}</p>
 
       <section className="pantry-panel" aria-label={locale === "en" ? "Available ingredients" : "วัตถุดิบที่มี"}>
         <div className="pantry-panel-top">
@@ -78,8 +78,8 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
         </div>
         <div className="pantry-groups">
           {pantryGroups.map((group) => (
-            <fieldset className="pantry-group" key={group.key}>
-              <legend>{pick(group.title, locale)}</legend>
+            <details className="pantry-group" key={group.key} open={group.key === "spirits"}>
+              <summary className="pantry-group-summary">{pick(group.title, locale)} <span aria-hidden="true">⌄</span></summary>
               <div className="pantry-options">
                 {group.items.map((item) => {
                   const active = selected.includes(item.key);
@@ -88,7 +88,7 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
                   </button>;
                 })}
               </div>
-            </fieldset>
+            </details>
           ))}
         </div>
       </section>
