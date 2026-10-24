@@ -264,3 +264,27 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
 .pantry-group-selected { color: var(--crimson-hot); font-size: .75rem; font-weight: 500; }
 .pantry-group-chevron { color: var(--muted); font-size: 1.1rem; font-weight: 400; transition: transform .15s; }
 .pantry-group[open] .pantry-group-chevron { transform: rotate(180deg); }
+
+/* Shake-to-discover cocktail picker */
+.pantry-surprise-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:1.1rem 0 1.5rem; padding:.9rem 1rem; border:1px solid var(--line); background:linear-gradient(110deg,rgba(157,18,48,.2),transparent 75%),var(--surface); }
+.pantry-surprise-copy { display:flex; align-items:center; gap:.75rem; min-width:0; }
+.pantry-surprise-icon { display:grid; place-items:center; width:2.5rem; height:2.5rem; flex:0 0 auto; border:1px solid var(--crimson-hot); border-radius:50%; color:var(--crimson-hot); font-size:1.3rem; }
+.pantry-surprise-copy strong { font-family:var(--display); font-size:1.2rem; }
+.pantry-surprise-copy p { margin:.15rem 0 0; color:var(--muted); font-size:.83rem; }
+.pantry-surprise-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
+.pantry-shake-button,.pantry-surprise-button,.pantry-not-now { min-height:2.65rem; border:1px solid var(--line); padding:.6rem .85rem; font:inherit; font-size:.85rem; cursor:pointer; }
+.pantry-shake-button,.pantry-not-now { background:transparent; color:var(--bone); }
+.pantry-surprise-button { border-color:var(--crimson-hot); background:var(--crimson-hot); color:#fff; font-weight:700; }
+.pantry-shake-button:hover,.pantry-not-now:hover { border-color:var(--crimson-hot); }
+.pantry-surprise-button:hover { filter:brightness(1.1); }
+.pantry-modal-backdrop { position:fixed; inset:0; z-index:1000; display:grid; place-items:center; padding:1rem; background:rgba(0,0,0,.78); backdrop-filter:blur(8px); }
+.pantry-surprise-modal { position:relative; width:min(100%,27rem); padding:clamp(1.5rem,6vw,2.2rem); border:1px solid rgba(232,65,99,.55); background:radial-gradient(ellipse at top right,rgba(157,18,48,.25),transparent 60%),var(--surface); box-shadow:0 24px 90px rgba(0,0,0,.5); animation:pantry-pop-in .22s ease-out; }
+.pantry-modal-close { position:absolute; top:.65rem; right:.75rem; border:0; background:transparent; color:var(--muted); font-size:1.8rem; cursor:pointer; }
+.pantry-surprise-eyebrow { display:block; margin:.5rem 0 .75rem; color:var(--crimson-hot); font-size:.7rem; font-weight:700; letter-spacing:.16em; }
+.pantry-surprise-modal h2 { max-width:90%; margin:0; font-family:var(--display); font-size:clamp(2rem,8vw,2.8rem); line-height:1.05; }
+.pantry-surprise-base { margin:.6rem 0 1.25rem; color:var(--muted); font-size:1rem; }
+.pantry-surprise-description { margin:0 0 1.5rem; color:var(--bone); line-height:1.6; }
+.pantry-modal-actions { display:flex; gap:.65rem; }
+.pantry-modal-actions>button { flex:1; }
+@keyframes pantry-pop-in { from { opacity:0; transform:translateY(10px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
+@media(max-width:35rem) { .pantry-surprise-bar { align-items:stretch; flex-direction:column; gap:.8rem; padding:.8rem; } .pantry-surprise-actions { display:grid; grid-template-columns:1fr 1fr; } .pantry-shake-button,.pantry-surprise-button { padding:.55rem .4rem; font-size:.8rem; } .pantry-modal-actions { flex-direction:column; } }
