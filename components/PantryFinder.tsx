@@ -23,7 +23,7 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
   const [motionEnabled, setMotionEnabled] = useState(false);
   const [shaking, setShaking] = useState(false);
   const [shakeFrame, setShakeFrame] = useState(0);
-  const shakeTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const shakeTimer = useRef<number | null>(null);
   const lastShakeAt = useRef(0);
   const router = useRouter();
 
