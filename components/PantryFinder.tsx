@@ -113,21 +113,43 @@ export default function PantryFinder({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     if (!motionEnabled) return;
+    let previous: { x: number; y: number; z: number } | null = null;
+    let lastPeakAt = 0;
     let lastTrigger = 0;
-    let previousMagnitude = 0;
+    let lastDirection = 0;
+    let alternatingSwings = 0;
     const handleMotion = (event: DeviceMotionEvent) => {
+      // Do not use absolute acceleration magnitude: gravity alone is ~9.8 m/s²
+      // and caused the old detector to trigger while the phone was still.
       const a = event.acceleration;
       const g = event.accelerationIncludingGravity;
-      const magnitude = a
-        ? Math.sqrt((a.x ?? 0) ** 2 + (a.y ?? 0) ** 2 + (a.z ?? 0) ** 2)
-        : g ? Math.sqrt((g.x ?? 0) ** 2 + (g.y ?? 0) ** 2 + (g.z ?? 0) ** 2) : 0;
+      const current = a && (a.x !== null || a.y !== null || a.z !== null)
+        ? { x: a.x ?? 0, y: a.y ?? 0, z: a.z ?? 0 }
+        : g ? { x: g.x ?? 0, y: g.y ?? 0, z: g.z ?? 0 } : null;
+      if (!current) return;
+      if (!previous) { previous = current; return; }
+      const dx = current.x - previous.x;
+      const dy = current.y - previous.y;
+      const dz = current.z - previous.z;
+      previous = current;
+      const axisDelta = Math.abs(dx) >= Math.abs(dy) && Math.abs(dx) >= Math.abs(dz) ? dx : Math.abs(dy) >= Math.abs(dz) ? dy : dz;
       const now = Date.now();
-      const delta = Math.abs(magnitude - previousMagnitude);
-      previousMagnitude = magnitude;
-      if ((magnitude > 10 || delta > 7) && now - lastTrigger > 2400) {
+      if (now - lastPeakAt < 220 || Math.abs(axisDelta) < 4.5) return;
+      const direction = Math.sign(axisDelta);
+      if (lastDirection !== 0 && direction !== lastDirection && now - lastPeakAt < 1800) {
+        alternatingSwings += 1;
+      } else if (lastDirection === 0 || now - lastPeakAt >= 1800) {
+        alternatingSwings = 1;
+      }
+      lastDirection = direction;
+      lastPeakAt = now;
+      if (alternatingSwings >= 4 && now - lastTrigger > 4000) {
         lastTrigger = now;
+        alternatingSwings = 0;
+        lastDirection = 0;
         startShakeReveal();
       }
+      if (now - lastPeakAt > 1800) { alternatingSwings = 0; lastDirection = 0; }
     };
     window.addEventListener("devicemotion", handleMotion, { passive: true });
     return () => window.removeEventListener("devicemotion", handleMotion);
