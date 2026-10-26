@@ -973,4 +973,28 @@ export const moreCocktails: Cocktail[] = [
     garnish: t("Apple juice ice sphere with a maraschino cherry"), taste: { sweet: 2, sour: 0, bitter: 2, rough: 2, strength: 4 },
   },
 
+  {
+    slug: "spooky-pumpkin-margarita", name: t("Spooky Pumpkin Margarita"), category: "classic", base: "tequila", glass: "rocks", method: "shake",
+    color: "#d4772c", garnishColor: "#49332b", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/spooky-pumpkin-margarita-a-halloween-treat"), tools: ["shaker","jigger","hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Tequila"), ing("30 ml (1 oz)", "Pumpkin purée"), ing("15 ml (1/2 oz)", "Cointreau"), ing("15 ml (1/2 oz)", "Maple syrup"), ing("30 ml (1 oz)", "Lime juice")],
+    steps: [t("Add tequila, pumpkin purée, Cointreau, maple syrup, lime juice and ice to a shaker."), t("Shake well until chilled."), t("Strain into a glass and garnish with caramel syrup and Halloween sprinkles.")],
+    garnish: t("Caramel syrup drizzle and Halloween sprinkles"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 3 },
+  },
+  {
+    slug: "huckleberry-vampire-margarita", name: t("Huckleberry Vampire Margarita"), category: "classic", base: "tequila", glass: "rocks", method: "shake",
+    color: "#703e8e", garnishColor: "#c62c48", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/huckleberry-vampire-margarita-a-spooky-delight"), tools: ["shaker","jigger","hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Tequila"), ing("30 ml (1 oz)", "Huckleberry purée"), ing("30 ml (1 oz)", "Lime juice"), ing("15 ml (1/2 oz)", "Triple sec")],
+    steps: [t("Combine tequila, huckleberry purée, lime juice, triple sec and ice in a shaker."), t("Shake until well mixed and chilled."), t("Strain into a glass and finish with purple edible glitter and red raspberry syrup.")],
+    garnish: t("Purple edible glitter and red raspberry syrup"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 3 },
+  },
+  {
+    slug: "frankenstein-elixir", name: t("Frankenstein Elixir"), category: "classic", base: "rum", glass: "rocks", method: "shake",
+    color: "#8cc342", garnishColor: "#25252b", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/frankenstein-elixir-a-vibrant-and-spooky-treat"), tools: ["shaker","jigger","hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Melon liqueur"), ing("30 ml (1 oz)", "Sour apple pucker"), ing("30 ml (1 oz)", "Lime juice"), ing("60 ml (2 oz)", "Chuckle Rum"), ing("for rim", "Raspberry syrup and black food coloring")],
+    steps: [t("Dip the glass rim in raspberry syrup mixed with black food coloring."), t("Combine melon liqueur, sour apple pucker, lime juice, Chuckle Rum and ice in a shaker."), t("Shake vigorously for 15 seconds, strain into the prepared glass and serve.")],
+    garnish: t("Raspberry syrup and black food coloring rim"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 3 },
+  },
 ];
