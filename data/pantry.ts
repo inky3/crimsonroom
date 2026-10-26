@@ -140,8 +140,11 @@ export const pantryNeeds: Record<string, Need[]> = {
   "vodka-soda": ["vodka", "soda", "lime"],
 
   "beetlejuice-margarita": ["tequila", "triple-sec", "lime"],
-  "strawberry-diablo": ["tequila", "lime", "grenadine", "ginger-beer"],
+  "strawberry-diablo": ["vodka", "triple-sec", "lime"],
   "autumn-old-fashioned": ["whisky", "bitters"],
   "dragon-fruit-mojito": ["rum-white", "lime", "mint", "soda"],
 
+  "candy-corn-martini": ["vodka", "pineapple-juice"],
+  "spider-web-cosmopolitan": ["vodka", "triple-sec", "lime", "cranberry-juice"],
+  "black-grape-zombie-mojito": ["vodka", "lime", "mint", "soda"],
 };
