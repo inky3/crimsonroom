@@ -637,4 +637,43 @@ export const moreCocktails: Cocktail[] = [
     garnish: t("Lime wedge"),
     taste: { sweet: 0, sour: 1, bitter: 0, rough: 1, strength: 2 },
   },
+
+  // Inspired by publicly listed Everyday Cocktail video titles; independently adapted specs.
+  {
+    slug: "beetlejuice-margarita", name: t("Beetlejuice Margarita"), category: "classic", base: "tequila", glass: "rocks", method: "shake",
+    color: "#6d9a55", garnishColor: "#8fbf3a", origin: "house",
+    story: t("A vivid green Halloween-style margarita inspired by a publicly listed Everyday Cocktail video title. This is an independently adapted recipe, not the creator's exact video ratios."),
+    tools: ["shaker", "jigger", "juicer", "hawthorne"],
+    ingredients: [ing("45 ml", "Blanco tequila"), ing("20 ml", "Triple sec"), ing("25 ml", "Fresh lime juice"), ing("10 ml", "Simple syrup")],
+    steps: [t("Add all ingredients to a shaker with ice."), t("Shake hard for 10 to 12 seconds."), t("Strain over fresh ice into a rocks glass.")],
+    garnish: t("Lime wheel"), taste: { sweet: 2, sour: 4, bitter: 0, rough: 2, strength: 3 },
+  },
+  {
+    slug: "strawberry-diablo", name: t("Strawberry Diablo"), category: "classic", base: "tequila", glass: "highball", method: "build",
+    color: "#c52e50", garnishColor: "#f28c28", origin: "house",
+    story: t("A berry-red tequila highball inspired by the Strawberry Diablo title publicly listed by Everyday Cocktail. This is an independently developed starting point, not the creator's exact recipe."),
+    tools: ["jigger", "juicer", "barSpoon"],
+    ingredients: [ing("45 ml", "Blanco tequila"), ing("20 ml", "Fresh lime juice"), ing("15 ml", "Grenadine"), ing("90 ml", "Ginger beer")],
+    steps: [t("Fill a highball glass with ice."), t("Add tequila, lime juice and grenadine, then stir."), t("Top with ginger beer and stir gently once.")],
+    garnish: t("Lime wheel"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 2, strength: 2 },
+  },
+  {
+    slug: "autumn-old-fashioned", name: t("Autumn Old Fashioned"), category: "classic", base: "whisky", glass: "rocks", method: "stir",
+    color: "#a85e26", garnishColor: "#f28c28", origin: "house",
+    story: t("A warming seasonal Old Fashioned inspired by a publicly listed Everyday Cocktail video title. This is an original house adaptation, not a transcription of the creator's measurements."),
+    tools: ["jigger", "barSpoon", "peeler"],
+    ingredients: [ing("50 ml", "Bourbon whisky"), ing("5 ml", "Simple syrup"), ing("2 dashes", "Angostura bitters"), ing("1 strip", "Orange peel")],
+    steps: [t("Add bourbon, syrup and bitters to a rocks glass."), t("Add a large ice cube and stir until chilled."), t("Express the orange peel over the drink and use it as garnish.")],
+    garnish: t("Orange peel"), taste: { sweet: 2, sour: 0, bitter: 2, rough: 4, strength: 4 },
+  },
+  {
+    slug: "dragon-fruit-mojito", name: t("Dragon Fruit Mojito"), category: "classic", base: "rum", glass: "highball", method: "muddle",
+    color: "#e6a2c7", garnishColor: "#3a9d5a", origin: "house",
+    story: t("A bright pink, fruit-forward Mojito inspired by a publicly listed Everyday Cocktail video title. Dragon fruit adds colour while lime and mint keep the drink fresh; ratios are independently adapted."),
+    tools: ["muddler", "jigger", "barSpoon", "juicer"],
+    ingredients: [ing("40 ml", "White rum"), ing("50 g", "Dragon fruit flesh"), ing("20 ml", "Fresh lime juice"), ing("10 ml", "Simple syrup"), ing("60 ml", "Soda water")],
+    steps: [t("Gently muddle dragon fruit with lime juice and syrup."), t("Add rum and ice, then stir well."), t("Top with soda water and stir once to combine.")],
+    garnish: t("Dragon fruit slice and mint"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 1, strength: 2 },
+  },
+
 ];
