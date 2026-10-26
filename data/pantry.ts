@@ -162,4 +162,11 @@ export const pantryNeeds: Record<string, Need[]> = {
   "blue-lagoon-public": ["vodka","curacao","lemon-lime-soda"],
   "dragonfruit-martini": ["vodka","lime"],
   "sex-on-the-beach-public": ["vodka","peach-juice","orange-juice","cranberry-juice"],
+
+  "classic-paloma": ["tequila", "lime", "grapefruit-soda", "soda"],
+  "classic-manhattan": ["whisky", "vermouth-sweet", "bitters"],
+  "blue-hawaii": ["vodka", "rum-white", "curacao", "pineapple-juice", "lemon"],
+  "honey-deuce": ["vodka", "lemon", "berry-liqueur"],
+  "southern-mule": ["whisky", "lime", "ginger-beer"],
+
 };
