@@ -1,4 +1,4 @@
-import rt type { ThaiRecipe } from "./th";
+import type { ThaiRecipe } from "./th";
 
 /* Thai text for the second batch of recipes (data/more.ts). Same rules as data/th.ts. */
 export const thMore: Record<string, ThaiRecipe> = {
