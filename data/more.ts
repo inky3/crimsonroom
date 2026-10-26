@@ -888,4 +888,51 @@ export const moreCocktails: Cocktail[] = [
     garnish: t("Lime wedge"), taste: { sweet: 2, sour: 2, bitter: 0, rough: 2, strength: 3 },
   },
 
+
+  {
+    slug: "fig-margarita", name: t("Fig Margarita"), category: "classic", base: "tequila", glass: "rocks", method: "shake",
+    color: "#986a9d", garnishColor: "#e8d5a2", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/fig-margarita-earthy-and-unique"),
+    tools: ["muddler", "shaker", "jigger", "hawthorne"],
+    ingredients: [ing("2", "Fresh figs"), ing("60 ml (2 oz)", "Tequila"), ing("30 ml (1 oz)", "Triple sec"), ing("15 ml (1/2 oz)", "Agave syrup"), ing("30 ml (1 oz)", "Lime juice")],
+    steps: [t("Muddle figs in a shaker until well mashed."), t("Add tequila, triple sec, agave syrup, lime juice and ice, then shake until chilled."), t("Strain into a glass with a Tajín-rimmed edge.")],
+    garnish: t("Tajín rim"), taste: { sweet: 2, sour: 3, bitter: 0, rough: 2, strength: 3 },
+  },
+  {
+    slug: "apple-cider-margarita", name: t("Apple Cider Margarita"), category: "classic", base: "tequila", glass: "rocks", method: "shake",
+    color: "#bb7d43", garnishColor: "#b7a36a", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/apple-cider-margarita-fall-in-a-glass"),
+    tools: ["shaker", "jigger", "hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Tequila blanco"), ing("30 ml (1 oz)", "Cointreau"), ing("15 ml (1/2 oz)", "Maple syrup"), ing("60 ml (2 oz)", "Apple cider"), ing("60 ml (2 oz)", "Lime juice")],
+    steps: [t("Prepare the rim with cinnamon sugar if desired."), t("Add tequila, Cointreau, maple syrup, apple cider and lime juice to a shaker with ice."), t("Shake until chilled, strain over fresh ice and garnish.")],
+    garnish: t("Cinnamon-sugar rim and apple slice"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 3 },
+  },
+  {
+    slug: "tropical-island-jungle-juice", name: t("Tropical Island Jungle Juice"), category: "classic", base: "vodka", glass: "highball", method: "build",
+    color: "#ef9c70", garnishColor: "#e7c66a", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/tropical-island-jungle-juice-a-party-in-a-bowl"),
+    tools: ["jigger", "barSpoon"],
+    ingredients: [ing("1/2 cup", "Vodka"), ing("1/2 cup", "Coconut rum"), ing("juice of 2", "Oranges"), ing("juice of 1", "Lemon"), ing("juice of 1", "Lime"), ing("180 ml (6 oz)", "Pineapple juice"), ing("1 cup", "Lemon-lime soda"), ing("1/2 cup", "Raspberries")],
+    steps: [t("Add fruit, juices, vodka and coconut rum to a punch bowl."), t("Stir gently to combine and chill before serving."), t("Add lemon-lime soda just before serving, then serve over ice.")],
+    garnish: t("Tropical fruit slices"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 3 },
+  },
+  {
+    slug: "chuckle-hurricane", name: t("The Chuckle Hurricane"), category: "classic", base: "rum", glass: "highball", method: "shake",
+    color: "#ee815b", garnishColor: "#f2c56a", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/the-chuckle-hurricane-a-tropical-powerhouse"),
+    tools: ["shaker", "jigger", "hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Chuckle Rum"), ing("60 ml (2 oz)", "Dark rum"), ing("60 ml (2 oz)", "Passion fruit juice"), ing("60 ml (2 oz)", "Orange juice"), ing("15 ml (1/2 oz)", "Grenadine"), ing("15 ml (1/2 oz)", "Lime juice"), ing("15 ml (1/2 oz)", "Simple syrup")],
+    steps: [t("Combine all ingredients in a shaker filled with ice."), t("Shake vigorously until chilled."), t("Strain into a hurricane glass filled with fresh ice and garnish.")],
+    garnish: t("Orange wheel and cherry"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 2, strength: 4 },
+  },
+  {
+    slug: "everyday-long-island-iced-tea", name: t("Long Island Iced Tea"), category: "classic", base: "vodka", glass: "highball", method: "shake",
+    color: "#b78b58", garnishColor: "#e6d17b", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/long-island-iced-tea-the-bold-classic"),
+    tools: ["shaker", "jigger", "hawthorne"],
+    ingredients: [ing("15 ml (1/2 oz)", "Vodka"), ing("15 ml (1/2 oz)", "Gin"), ing("15 ml (1/2 oz)", "White rum"), ing("15 ml (1/2 oz)", "Tequila"), ing("15 ml (1/2 oz)", "Simple syrup"), ing("15 ml (1/2 oz)", "Lemon juice"), ing("to top", "Cola")],
+    steps: [t("Combine vodka, gin, rum, tequila, simple syrup and lemon juice in a shaker with ice."), t("Shake until chilled and strain into a tall glass filled with ice."), t("Top with cola and garnish.")],
+    garnish: t("Lemon wedge"), taste: { sweet: 2, sour: 2, bitter: 1, rough: 2, strength: 5 },
+  },
+
 ];
