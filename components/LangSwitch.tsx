@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { Locale } from "@/lib/types";
 
 const LOCALE_KEY = "crimsonroom-locale";
@@ -10,7 +10,6 @@ const HISTORY_KEY = "crimsonroom-history-navigation";
 export default function LangSwitch({ locale, label }: { locale: Locale; label: string }) {
   const pathname = usePathname() || `/${locale}`;
   const router = useRouter();
-  const searchParams = useSearchParams();
   const rest = pathname.split("/").slice(2).join("/");
 
 
@@ -35,7 +34,7 @@ export default function LangSwitch({ locale, label }: { locale: Locale; label: s
       const nextPath = `/${preferred}${window.location.pathname.split("/").slice(2).join("/") ? `/${window.location.pathname.split("/").slice(2).join("/")}` : ""}`;
       router.replace(`${nextPath}${window.location.search}${window.location.hash}`, { scroll: false });
     }
-  }, [pathname, searchParams, router]);
+  }, [pathname, router]);
 
   const href = (nextLocale: Locale) => {
     const path = `/${nextLocale}${rest ? `/${rest}` : ""}`;
