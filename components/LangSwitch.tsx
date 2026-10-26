@@ -1,29 +1,30 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import type { Locale } from "@/lib/types";
 
 const LOCALE_KEY = "crimsonroom-locale";
+const HISTORY_KEY = "crimsonroom-history-navigation";
 
 export default function LangSwitch({ locale, label }: { locale: Locale; label: string }) {
   const pathname = usePathname() || `/${locale}`;
   const router = useRouter();
   const rest = pathname.split("/").slice(2).join("/");
-  const historyNavigation = useRef(false);
+
 
   // Remember the visitor's chosen language across browser Back/Forward navigation.
   useEffect(() => {
     const markHistoryNavigation = () => {
-      historyNavigation.current = true;
+      window.sessionStorage.setItem(HISTORY_KEY, "1");
     };
     window.addEventListener("popstate", markHistoryNavigation);
     return () => window.removeEventListener("popstate", markHistoryNavigation);
   }, []);
 
   useEffect(() => {
-    if (!historyNavigation.current) return;
-    historyNavigation.current = false;
+    if (window.sessionStorage.getItem(HISTORY_KEY) !== "1") return;
+    window.sessionStorage.removeItem(HISTORY_KEY);
 
     const preferred = window.localStorage.getItem(LOCALE_KEY);
     if (preferred !== "en" && preferred !== "th") return;
