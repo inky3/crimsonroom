@@ -935,4 +935,42 @@ export const moreCocktails: Cocktail[] = [
     garnish: t("Lemon wedge"), taste: { sweet: 2, sour: 2, bitter: 1, rough: 2, strength: 5 },
   },
 
+
+  {
+    slug: "witchs-web", name: t("Witch's Web"), category: "classic", base: "vodka", glass: "rocks", method: "shake",
+    color: "#3c73db", garnishColor: "#28254b", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/witch-s-web-enchantingly-blue-and-refreshing"),
+    tools: ["muddler", "shaker", "jigger", "hawthorne"],
+    ingredients: [ing("3", "Blackberries"), ing("60 ml (2 oz)", "Blue raspberry vodka"), ing("30 ml (1 oz)", "Lemon juice"), ing("30 ml (1 oz)", "Triple sec")],
+    steps: [t("Muddle the blackberries in a shaker to release their juices."), t("Add blue raspberry vodka, lemon juice, triple sec and ice, then shake until chilled."), t("Strain into a glass filled with ice and garnish.")],
+    garnish: t("Blackberry skewer"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 1, strength: 3 },
+  },
+  {
+    slug: "blood-injection-mimosa", name: t("Blood Injection Mimosa"), category: "classic", base: "wine", glass: "flute", method: "build",
+    color: "#d83d52", garnishColor: "#8f162b", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/blood-injection-mimosa-a-spooky-showstopper"),
+    tools: ["jigger"],
+    ingredients: [ing("60 ml (2 oz)", "Pomegranate juice"), ing("90 ml (3 oz)", "Champagne")],
+    steps: [t("Rim a champagne flute with raspberry or strawberry purée for a bloody effect."), t("Fill a syringe with pomegranate juice and place it alongside the glass."), t("Pour champagne into the flute and serve immediately.")],
+    garnish: t("Raspberry or strawberry purée and a pomegranate juice syringe"), taste: { sweet: 2, sour: 2, bitter: 0, rough: 0, strength: 2 },
+  },
+  {
+    slug: "beetlejuice-potion", name: t("Beetlejuice Potion"), category: "classic", base: "rum", glass: "highball", method: "shake",
+    color: "#222222", garnishColor: "#49c7d0", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/beetlejuice-potion-a-mystical-tropical-cocktail"),
+    tools: ["shaker", "jigger", "hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Pineapple juice"), ing("30 ml (1 oz)", "Orange juice"), ing("15 ml (1/2 oz)", "Blue curaçao"), ing("60 ml (2 oz)", "White rum"), ing("1 tsp", "Activated charcoal")],
+    steps: [t("Combine pineapple juice, orange juice, blue curaçao, white rum and activated charcoal in a shaker filled with ice."), t("Shake vigorously for 10–15 seconds to mix and chill."), t("Strain into a glass and serve immediately.")],
+    garnish: t("Optional spooky garnish"), taste: { sweet: 3, sour: 1, bitter: 1, rough: 1, strength: 3 },
+  },
+  {
+    slug: "halloween-old-fashioned", name: t("Halloween Old Fashioned"), category: "classic", base: "whisky", glass: "rocks", method: "stir",
+    color: "#9b5a28", garnishColor: "#b5222c", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/halloween-old-fashioned-a-spooky-seasonal-sip"),
+    tools: ["mixingGlass", "barSpoon", "jigger"],
+    ingredients: [ing("60 ml (2 oz)", "Bourbon"), ing("3 drops", "Angostura bitters"), ing("for ice sphere", "Apple juice"), ing("1", "Maraschino cherry")],
+    steps: [t("Freeze apple juice with a maraschino cherry inside an ice sphere mold."), t("Add bourbon and Angostura bitters to a rocks glass over the prepared apple juice ice sphere."), t("Stir gently and serve.")],
+    garnish: t("Apple juice ice sphere with a maraschino cherry"), taste: { sweet: 2, sour: 0, bitter: 2, rough: 2, strength: 4 },
+  },
+
 ];
