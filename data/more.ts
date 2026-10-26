@@ -855,7 +855,7 @@ export const moreCocktails: Cocktail[] = [
     slug: "classic-manhattan", name: t("Classic Manhattan"), category: "classic", base: "whisky", glass: "martini", method: "stir",
     color: "#8d4c3b", garnishColor: "#a92e38", origin: "told",
     story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/classic-manhattan-the-quintessential-whiskey-cocktail"),
-    tools: ["mixingGlass", "barSpoon", "jigger", "strainer"],
+    tools: ["mixingGlass", "barSpoon", "jigger", "hawthorne"],
     ingredients: [ing("60 ml (2 oz)", "Bourbon or rye whiskey"), ing("30 ml (1 oz)", "Sweet vermouth"), ing("2 dashes", "Angostura bitters")],
     steps: [t("Add whiskey, sweet vermouth and bitters to a mixing glass filled with ice."), t("Stir until well chilled."), t("Strain into a chilled cocktail glass and garnish.")],
     garnish: t("Cocktail cherry"), taste: { sweet: 2, sour: 0, bitter: 2, rough: 2, strength: 4 },
