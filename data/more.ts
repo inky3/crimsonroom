@@ -841,4 +841,51 @@ export const moreCocktails: Cocktail[] = [
     garnish: t("Orange slice"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 2 },
   },
 
+
+  {
+    slug: "classic-paloma", name: t("Classic Paloma"), category: "classic", base: "tequila", glass: "highball", method: "shake",
+    color: "#f3a68b", garnishColor: "#e8cf9a", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/classic-paloma-the-quintessential-tequila-cocktail"),
+    tools: ["shaker", "jigger", "hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Tequila blanco"), ing("30 ml (1 oz)", "Agave syrup"), ing("90 ml (3 oz)", "Fresh grapefruit juice"), ing("30 ml (1 oz)", "Club soda"), ing("30 ml (1 oz)", "Fresh lime juice")],
+    steps: [t("Add tequila, agave syrup, grapefruit juice and lime juice to a shaker with ice."), t("Shake until chilled and strain into a glass filled with fresh ice."), t("Top with club soda, stir gently and garnish.")],
+    garnish: t("Grapefruit wedge and lime wheel"), taste: { sweet: 3, sour: 3, bitter: 1, rough: 1, strength: 3 },
+  },
+  {
+    slug: "classic-manhattan", name: t("Classic Manhattan"), category: "classic", base: "whisky", glass: "martini", method: "stir",
+    color: "#8d4c3b", garnishColor: "#a92e38", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/classic-manhattan-the-quintessential-whiskey-cocktail"),
+    tools: ["mixingGlass", "barSpoon", "jigger", "strainer"],
+    ingredients: [ing("60 ml (2 oz)", "Bourbon or rye whiskey"), ing("30 ml (1 oz)", "Sweet vermouth"), ing("2 dashes", "Angostura bitters")],
+    steps: [t("Add whiskey, sweet vermouth and bitters to a mixing glass filled with ice."), t("Stir until well chilled."), t("Strain into a chilled cocktail glass and garnish.")],
+    garnish: t("Cocktail cherry"), taste: { sweet: 2, sour: 0, bitter: 2, rough: 2, strength: 4 },
+  },
+  {
+    slug: "blue-hawaii", name: t("Blue Hawaii"), category: "classic", base: "rum", glass: "highball", method: "shake",
+    color: "#25a9c7", garnishColor: "#f5d36c", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/blue-hawaii-a-vibrant-tropical-classic"),
+    tools: ["shaker", "jigger", "hawthorne"],
+    ingredients: [ing("45 ml (1 1/2 oz)", "Vodka"), ing("45 ml (1 1/2 oz)", "White rum"), ing("30 ml (1 oz)", "Blue curaçao"), ing("90 ml (3 oz)", "Pineapple juice"), ing("30 ml (1 oz)", "Sweet and sour mix")],
+    steps: [t("Combine all ingredients in a shaker filled with ice."), t("Shake vigorously for 10–15 seconds until chilled."), t("Strain into a hurricane glass filled with fresh ice and garnish.")],
+    garnish: t("Pineapple wedge and cherry"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 3 },
+  },
+  {
+    slug: "honey-deuce", name: t("Honey Deuce"), category: "classic", base: "vodka", glass: "highball", method: "build",
+    color: "#e9a7b2", garnishColor: "#7fb76c", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/honey-deuce-light-and-refreshing"),
+    tools: ["jigger", "barSpoon"],
+    ingredients: [ing("37 ml (1 1/4 oz)", "Vodka"), ing("90 ml (3 oz)", "Fresh lemonade"), ing("15 ml (1/2 oz)", "Chambord")],
+    steps: [t("Fill a glass with ice."), t("Add vodka, fresh lemonade and Chambord, then stir to combine."), t("Garnish with honeydew melon balls and serve.")],
+    garnish: t("Honeydew melon balls"), taste: { sweet: 3, sour: 2, bitter: 0, rough: 1, strength: 2 },
+  },
+  {
+    slug: "southern-mule", name: t("Classic Southern Mule"), category: "classic", base: "whisky", glass: "highball", method: "build",
+    color: "#c99b61", garnishColor: "#7dbb73", origin: "told",
+    story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/classic-southern-mule-a-whiskey-twist-on-the-mule"),
+    tools: ["jigger", "barSpoon"],
+    ingredients: [ing("60 ml (2 oz)", "Whiskey"), ing("30 ml (1 oz)", "Lime juice"), ing("90 ml (3 oz)", "Ginger beer")],
+    steps: [t("Fill a mule mug with crushed ice."), t("Add whiskey and lime juice."), t("Top with ginger beer and stir gently to combine.")],
+    garnish: t("Lime wedge"), taste: { sweet: 2, sour: 2, bitter: 0, rough: 2, strength: 3 },
+  },
+
 ];
