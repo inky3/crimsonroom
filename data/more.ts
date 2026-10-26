@@ -649,13 +649,13 @@ export const moreCocktails: Cocktail[] = [
     garnish: t("Lime wheel"), taste: { sweet: 2, sour: 4, bitter: 0, rough: 2, strength: 3 },
   },
   {
-    slug: "strawberry-diablo", name: t("Strawberry Diablo"), category: "classic", base: "tequila", glass: "highball", method: "build",
-    color: "#c52e50", garnishColor: "#f28c28", origin: "house",
-    story: t("A berry-red tequila highball inspired by the Strawberry Diablo title publicly listed by Everyday Cocktail. This is an independently developed starting point, not the creator's exact recipe."),
-    tools: ["jigger", "juicer", "barSpoon"],
-    ingredients: [ing("45 ml", "Blanco tequila"), ing("20 ml", "Fresh lime juice"), ing("15 ml", "Grenadine"), ing("90 ml", "Ginger beer")],
-    steps: [t("Fill a highball glass with ice."), t("Add tequila, lime juice and grenadine, then stir."), t("Top with ginger beer and stir gently once.")],
-    garnish: t("Lime wheel"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 2, strength: 2 },
+    slug: "strawberry-diablo", name: t("Strawberry Diablo"), category: "classic", base: "vodka", glass: "highball", method: "shake",
+    color: "#c52e50", garnishColor: "#f28c28", origin: "told",
+    story: t("Everyday Cocktail's published version combines strawberry vodka, fresh strawberry, hot honey, lime and triple sec, topped with club soda. Measurements are converted from the public article."),
+    tools: ["shaker", "jigger", "juicer", "hawthorne", "muddler"],
+    ingredients: [ing("1", "Fresh strawberry"), ing("15 ml (1/2 oz)", "Hot honey"), ing("30 ml (1 oz)", "Fresh lime juice"), ing("15 ml (1/2 oz)", "Triple sec"), ing("60 ml (2 oz)", "Strawberry vodka"), ing("90 ml (3 oz)", "Club soda")],
+    steps: [t("Muddle the strawberry with hot honey in a shaker."), t("Add lime juice, triple sec and strawberry vodka with ice, then shake until chilled."), t("Strain into an ice-filled glass, top with club soda and stir gently.")],
+    garnish: t("Fresh strawberry or lime wheel"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 1, strength: 2 },
   },
   {
     slug: "autumn-old-fashioned", name: t("Autumn Old Fashioned"), category: "classic", base: "whisky", glass: "rocks", method: "stir",
@@ -674,6 +674,35 @@ export const moreCocktails: Cocktail[] = [
     ingredients: [ing("40 ml", "White rum"), ing("50 g", "Dragon fruit flesh"), ing("20 ml", "Fresh lime juice"), ing("10 ml", "Simple syrup"), ing("60 ml", "Soda water")],
     steps: [t("Gently muddle dragon fruit with lime juice and syrup."), t("Add rum and ice, then stir well."), t("Top with soda water and stir once to combine.")],
     garnish: t("Dragon fruit slice and mint"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 1, strength: 2 },
+  },
+
+
+  {
+    slug: "candy-corn-martini", name: t("Candy Corn Martini"), category: "classic", base: "vodka", glass: "martini", method: "shake",
+    color: "#f2b53d", garnishColor: "#f28c28", origin: "told",
+    story: t("A dessert-style martini from Everyday Cocktail's public recipe article, using pineapple vodka, pineapple juice and whipped cream."),
+    tools: ["shaker", "jigger", "hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Pineapple vodka"), ing("60 ml (2 oz)", "Pineapple juice"), ing("15 ml (1/2 oz)", "Whipped cream")],
+    steps: [t("Add the pineapple vodka, pineapple juice and whipped cream to a shaker with ice."), t("Shake until cold and frothy."), t("Strain into a chilled martini glass.")],
+    garnish: t("Candy corn, optional"), taste: { sweet: 4, sour: 1, bitter: 0, rough: 1, strength: 2 },
+  },
+  {
+    slug: "spider-web-cosmopolitan", name: t("Spider Web Cosmopolitan"), category: "classic", base: "vodka", glass: "martini", method: "shake",
+    color: "#f0e8ee", garnishColor: "#8fbf3a", origin: "told",
+    story: t("A pale, citrus-forward Cosmopolitan variation from Everyday Cocktail's public recipe article, made with white cranberry juice."),
+    tools: ["shaker", "jigger", "juicer", "hawthorne"],
+    ingredients: [ing("60 ml (2 oz)", "Vodka"), ing("30 ml (1 oz)", "Cointreau"), ing("30 ml (1 oz)", "Fresh lime juice"), ing("30 ml (1 oz)", "White cranberry juice")],
+    steps: [t("Add all ingredients to a shaker filled with ice."), t("Shake until thoroughly chilled."), t("Strain into a chilled martini glass and add an optional web decoration.")],
+    garnish: t("Optional chocolate or licorice web"), taste: { sweet: 2, sour: 3, bitter: 0, rough: 2, strength: 3 },
+  },
+  {
+    slug: "black-grape-zombie-mojito", name: t("Black Grape Zombie Mojito"), category: "classic", base: "vodka", glass: "highball", method: "muddle",
+    color: "#543568", garnishColor: "#8fbf3a", origin: "told",
+    story: t("A Halloween-style Mojito from Everyday Cocktail's public recipe article, combining black grape vodka, muddled grapes, mint, lime and soda."),
+    tools: ["muddler", "jigger", "barSpoon", "juicer"],
+    ingredients: [ing("1/2", "Lime, cut into wedges"), ing("2 tsp", "Brown sugar"), ing("4", "Black grapes"), ing("4–5", "Mint leaves"), ing("60 ml (2 oz)", "Black grape vodka"), ing("90 ml (3 oz)", "Club soda")],
+    steps: [t("Muddle lime wedges, brown sugar, grapes and mint in a tall glass."), t("Add black grape vodka and fill the glass with crushed ice."), t("Top with club soda, stir gently and garnish.")],
+    garnish: t("Marshmallow eye, optional"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 1, strength: 2 },
   },
 
 ];
