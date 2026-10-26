@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CocktailCard from "./CocktailCard";
 import type { CardData } from "@/lib/view";
 import type { Locale, SpiritKey, TasteKey } from "@/lib/types";
@@ -23,6 +23,17 @@ type Labels = {
 };
 
 type Sort = "name" | TasteKey;
+const validSorts: Sort[] = ["name", "sweet", "sour", "bitter", "rough", "strength"];
+
+function readFilters() {
+  const params = new URLSearchParams(window.location.search);
+  const rawSort = params.get("sort") as Sort | null;
+  return {
+    query: params.get("q") ?? "",
+    base: params.get("base") ?? "all",
+    sort: rawSort && validSorts.includes(rawSort) ? rawSort : "name",
+  };
+}
 
 export default function Browse({
   items,
@@ -36,6 +47,40 @@ export default function Browse({
   const [query, setQuery] = useState("");
   const [base, setBase] = useState<SpiritKey | "all">("all");
   const [sort, setSort] = useState<Sort>("name");
+  const [ready, setReady] = useState(false);
+
+  // Keep filters in the URL so opening a recipe and going back restores the list.
+  useEffect(() => {
+    const filters = readFilters();
+    setQuery(filters.query);
+    setBase(filters.base as SpiritKey | "all");
+    setSort(filters.sort);
+    setReady(true);
+
+    const restoreOnHistory = () => {
+      const next = readFilters();
+      setQuery(next.query);
+      setBase(next.base as SpiritKey | "all");
+      setSort(next.sort);
+    };
+    window.addEventListener("popstate", restoreOnHistory);
+    return () => window.removeEventListener("popstate", restoreOnHistory);
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    const params = new URLSearchParams(window.location.search);
+    if (query) params.set("q", query);
+    else params.delete("q");
+    if (base !== "all") params.set("base", base);
+    else params.delete("base");
+    if (sort !== "name") params.set("sort", sort);
+    else params.delete("sort");
+
+    const search = params.toString();
+    const nextUrl = `${window.location.pathname}${search ? `?${search}` : ""}${window.location.hash}`;
+    window.history.replaceState(window.history.state, "", nextUrl);
+  }, [query, base, sort, ready]);
 
   // Only offer base spirits that exist in this list.
   const bases = useMemo(() => {
