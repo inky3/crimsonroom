@@ -182,9 +182,9 @@ export const pantryNeeds: Record<string, Need[]> = {
   "beetlejuice-potion": ["rum-white", "curacao", "pineapple-juice", "orange-juice"],
   "halloween-old-fashioned": ["whisky", "bitters"],
 
-  "spooky-pumpkin-margarita": ["tequila","triple-sec","lime","fresh"],
+  "spooky-pumpkin-margarita": ["tequila","triple-sec","lime"],
   "huckleberry-vampire-margarita": ["tequila","triple-sec","lime","fresh"],
-  "frankenstein-elixir": ["liqueurs","lime","rum-white","fresh"],
+  "frankenstein-elixir": ["lime","rum-white"],
 
   "gimlet": ["gin", "lime"],
   "americano": ["campari", "vermouth-sweet", "soda"],
