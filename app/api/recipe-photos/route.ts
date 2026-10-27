@@ -77,8 +77,22 @@ function hasCompatiblePhoto(recipe: Cocktail, candidate: ApiDrink): boolean {
   const titleOverlap = recipeNameWords.filter((word) => candidateNameWords.includes(word)).length;
   const ingredientOverlap = [...recipeIngredientWords].filter((word) => candidateIngredientWords.has(word)).length;
 
+  // Strong flavour markers should not appear in a substitute image when the
+  // recipe doesn't contain them. This prevents, for example, a mint cocktail
+  // from being used for a Shirley Temple.
+  const distinctiveIngredients = [
+    "mint", "basil", "rosemary", "thyme", "sage", "coffee", "cream",
+    "coconut", "pineapple", "olive", "celery", "egg", "chocolate",
+    "banana", "grapefruit", "cucumber", "jalapeno", "jalapeño",
+  ];
+  for (const ingredient of distinctiveIngredients) {
+    if (candidateIngredientWords.has(ingredient) && !recipeIngredientWords.has(ingredient)) {
+      return false;
+    }
+  }
+
   // Accept a related title only when the drink's ingredients support it, or
-  // require at least two distinctive ingredient matches when titles differ.
+  // require at least two ingredient matches when titles differ.
   return (titleOverlap >= 1 && ingredientOverlap >= 1) || ingredientOverlap >= 2;
 }
 
@@ -166,8 +180,10 @@ async function buildAssignments(): Promise<Assignment> {
   });
   for (const recipe of unresolved) {
     if (curatedPhotoOverrides[recipe.slug]) continue;
-    const best = [...remaining.values()].sort((a, b) => scoreMatch(recipe, b) - scoreMatch(recipe, a))[0];
-    if (best?.strDrinkThumb && hasCompatiblePhoto(recipe, best)) {
+    const best = [...remaining.values()]
+      .filter((candidate) => hasCompatiblePhoto(recipe, candidate))
+      .sort((a, b) => scoreMatch(recipe, b) - scoreMatch(recipe, a))[0];
+    if (best?.strDrinkThumb) {
       assigned.set(recipe.slug, best);
       remaining.delete(best.strDrinkThumb);
     }
@@ -182,9 +198,11 @@ async function buildAssignments(): Promise<Assignment> {
     if (!primaryUrl) continue;
     const alternatives: string[] = [];
     for (let i = 0; i < 2 && remaining.size > 0; i += 1) {
-      const bestAlt = [...remaining.values()].sort((a, b) => scoreMatch(recipe, b) - scoreMatch(recipe, a))[0];
+      const bestAlt = [...remaining.values()]
+        .filter((candidate) => hasCompatiblePhoto(recipe, candidate))
+        .sort((a, b) => scoreMatch(recipe, b) - scoreMatch(recipe, a))[0];
       // A broken image should not be replaced with a different, unrelated drink.
-      if (!bestAlt?.strDrinkThumb || !hasCompatiblePhoto(recipe, bestAlt)) break;
+      if (!bestAlt?.strDrinkThumb) break;
       alternatives.push(bestAlt.strDrinkThumb);
       remaining.delete(bestAlt.strDrinkThumb);
     }
