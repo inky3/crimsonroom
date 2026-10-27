@@ -72,9 +72,13 @@ export default async function CocktailPage({
                 {s.glass}: {pick(glasses[c.glass], locale)}
               </span>
             </p>
-            <h2 className="small">{s.story}</h2>
-            <p className="story">{pick(c.story, locale)}</p>
-            <p className="note">{c.origin === "told" ? s.originTold : s.originHouse}</p>
+            {pick(c.story, locale).trim() && (
+              <>
+                <h2 className="small">{s.story}</h2>
+                <p className="story">{pick(c.story, locale)}</p>
+                <p className="note">{c.origin === "told" ? s.originTold : s.originHouse}</p>
+              </>
+            )}
           </div>
         </header>
 
