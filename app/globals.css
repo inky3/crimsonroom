@@ -308,3 +308,15 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
 @keyframes pantry-shaker-rock { from { transform:rotate(-13deg) translateX(-3px); } to { transform:rotate(13deg) translateX(3px); } }
 @keyframes pantry-bubble { 0% { transform:translateY(0) scale(.7); opacity:.3; } 50% { transform:translateY(-1.8rem) scale(1); opacity:1; } 100% { transform:translateY(-2.5rem) scale(.65); opacity:0; } }
 @media (prefers-reduced-motion:reduce) { .pantry-shaker-active .pantry-shaker-illustration,.pantry-shaker-body i { animation:none; } }
+
+/* Seasonal Halloween collection */
+.halloween-nav { color: #f3a24b; }
+.halloween-nav:hover { border-color: #f3a24b !important; }
+.halloween-page { min-height: 65vh; background: radial-gradient(ellipse at 50% 0%, rgba(94,35,116,.28), transparent 52%), #080609; }
+.halloween-page .page-title, .halloween-page h2 { color: #f5a64a; }
+.halloween-page .eyebrow { color: #b98ad4; letter-spacing: .18em; text-transform: uppercase; font-size: .75rem; font-weight: 700; }
+.halloween-page .card { border-color: #38233d; }
+.halloween-page .card:hover { border-color: #f5a64a; }
+.halloween-page .card-name { color: #f3e8f6; }
+.halloween-page .card-base { color: #b7a1be; }
+.halloween-page .halloween-intro { max-width: 44rem; color: #c5b4c9; margin: .8rem 0 2rem; }
