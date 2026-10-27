@@ -13,6 +13,9 @@ export const dynamic = "force-dynamic";
 
 const halloweenSlugs = [
   "beetlejuice-margarita",
+  "strawberry-diablo",
+  "autumn-old-fashioned",
+  "dragon-fruit-mojito",
   "candy-corn-martini",
   "spider-web-cosmopolitan",
   "black-grape-zombie-mojito",
