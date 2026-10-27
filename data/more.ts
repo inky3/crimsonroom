@@ -946,7 +946,7 @@ export const moreCocktails: Cocktail[] = [
     garnish: t("Blackberry skewer"), taste: { sweet: 3, sour: 3, bitter: 0, rough: 1, strength: 3 },
   },
   {
-    slug: "blood-injection-mimosa", name: t("Blood Injection Mimosa"), category: "classic", base: "wine", glass: "flute", method: "build",
+    slug: "blood-injection-mimosa", name: t("Blood Injection Mimosa"), category: "classic", base: "wine", glass: "wine", method: "build",
     color: "#d83d52", garnishColor: "#8f162b", origin: "told",
     story: t("Public Everyday Cocktail recipe: https://www.everydaycocktail.com/blogs/recipes/blood-injection-mimosa-a-spooky-showstopper"),
     tools: ["jigger"],
