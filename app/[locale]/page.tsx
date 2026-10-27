@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CocktailCard from "@/components/CocktailCard";
-import GlassArt from "@/components/GlassArt";
+import RecipeArtwork from "@/components/RecipeArtwork";
 import { cocktails, getCocktail } from "@/data/cocktails";
 import { spirits } from "@/data/reference";
 import { isLocale, pick, ui } from "@/lib/i18n";
@@ -56,7 +56,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
           <Link href={`/${locale}/cocktails/${hero.slug}`} className="hero-glass" aria-label={pick(hero.name, locale)}>
-            <GlassArt glass={hero.glass} color={hero.color} garnish={hero.garnishColor} id="hero" />
+            <RecipeArtwork mode="detail" slug={hero.slug} name={pick(hero.name, locale)} category={hero.category} glass={hero.glass} color={hero.color} garnishColor={hero.garnishColor} image={hero.image} />
           </Link>
         </div>
       </section>
