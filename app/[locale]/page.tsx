@@ -70,6 +70,22 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
+      <section className="container section alcohol-free-section" aria-labelledby="alcohol-free-heading">
+        <p className="eyebrow">{locale === "th" ? "รสชาติและเทคนิค โดยไม่มีแอลกอฮอล์" : "All the craft, none of the alcohol"}</p>
+        <h2 id="alcohol-free-heading">{locale === "th" ? "เครื่องดื่มไม่มีแอลกอฮอล์" : "Alcohol Free"}</h2>
+        <p className="muted">{locale === "th" ? "สูตรม็อกเทลสำหรับฝึกทักษะบาร์เทนเดอร์และเพลิดเพลินได้ทุกเวลา" : "Explore zero-alcohol drinks built around flavour, balance and bartending technique."}</p>
+        <div className="grid">
+          {cocktails.filter((c) => c.category === "mocktail").slice(0, 5).map((c) => (
+            <CocktailCard key={c.slug} item={toCard(c, locale)} locale={locale} />
+          ))}
+        </div>
+        <div className="actions alcohol-free-action">
+          <Link href={`/${locale}/alcohol-free`} className="btn primary">
+            {locale === "th" ? "ดูสูตรทั้งหมด" : "Explore all alcohol-free recipes"} ↗
+          </Link>
+        </div>
+      </section>
+
       {isHalloweenSeason && (
         <section className="container section halloween-section" aria-labelledby="halloween-heading">
           <p className="eyebrow">October special</p>

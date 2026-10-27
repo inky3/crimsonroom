@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CocktailCard from "@/components/CocktailCard";
-import GlassArt from "@/components/GlassArt";
+import RecipeArtwork from "@/components/RecipeArtwork";
 import TasteGauges from "@/components/TasteGauges";
 import TasteCoach from "@/components/TasteCoach";
 import TasteProfile from "@/components/TasteProfile";
@@ -58,12 +58,16 @@ export default async function CocktailPage({
       <article className="recipe recipe-immersive">
         <header className="recipe-head">
           <div className="recipe-art">
-            {c.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={c.image} alt={name} />
-            ) : (
-              <GlassArt glass={c.glass} color={c.color} garnish={c.garnishColor} id="detail" label={name} />
-            )}
+            <RecipeArtwork
+              mode="detail"
+              slug={c.slug}
+              name={name}
+              category={c.category}
+              glass={c.glass}
+              color={c.color}
+              garnishColor={c.garnishColor}
+              image={c.image}
+            />
           </div>
           <div className="recipe-intro">
             <h1>{name}</h1>
