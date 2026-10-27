@@ -7,6 +7,11 @@ export const dynamic = "force-dynamic";
 
 const API_BASE = "https://www.thecocktaildb.com/api/json/v1/1";
 const CACHE_SECONDS = 60 * 60 * 24 * 7;
+
+// This recipe's available database photographs visibly conflict with its
+// ginger-ale, grenadine and lime recipe, so always use the accurate vector art.
+const VECTOR_ONLY_SLUGS = new Set(["virgin-mojito"]);
+
 const STOP_WORDS = new Set([
   "a", "an", "and", "the", "with", "of", "for", "or", "drink", "cocktail",
   "classic", "public", "house", "everyday", "style", "table", "virgin",
@@ -84,6 +89,9 @@ function hasCompatiblePhoto(recipe: Cocktail, candidate: ApiDrink): boolean {
     "mint", "basil", "rosemary", "thyme", "sage", "coffee", "cream",
     "coconut", "pineapple", "olive", "celery", "egg", "chocolate",
     "banana", "grapefruit", "cucumber", "jalapeno", "jalapeño",
+    "orange", "apple", "tomato", "cranberry", "pomegranate",
+    "blueberry", "raspberry", "peach", "pear", "watermelon",
+    "mango", "passionfruit", "passion fruit", "lychee", "lemon",
   ];
   for (const ingredient of distinctiveIngredients) {
     if (candidateIngredientWords.has(ingredient) && !recipeIngredientWords.has(ingredient)) {
@@ -162,6 +170,8 @@ async function buildAssignments(): Promise<Assignment> {
 
   // First pass: preserve exact-name photographs for recipes that have them.
   for (const recipe of recipes) {
+    // Use vector art when available photographs visibly contradict the recipe.
+    if (VECTOR_ONLY_SLUGS.has(recipe.slug)) continue;
     // A specific, manually verified image takes precedence over the general API pool.
     if (curatedPhotoOverrides[recipe.slug]) continue;
     const target = normalize(recipe.name.en);
@@ -179,6 +189,7 @@ async function buildAssignments(): Promise<Assignment> {
     return bSpecificity - aSpecificity || a.slug.localeCompare(b.slug);
   });
   for (const recipe of unresolved) {
+    if (VECTOR_ONLY_SLUGS.has(recipe.slug)) continue;
     if (curatedPhotoOverrides[recipe.slug]) continue;
     const best = [...remaining.values()]
       .filter((candidate) => hasCompatiblePhoto(recipe, candidate))
@@ -193,6 +204,7 @@ async function buildAssignments(): Promise<Assignment> {
   // left without a photo instead of being assigned a visibly wrong drink.
   const photos: Record<string, PhotoAsset> = { ...curatedPhotoOverrides };
   for (const recipe of recipes) {
+    if (VECTOR_ONLY_SLUGS.has(recipe.slug)) continue;
     const primary = assigned.get(recipe.slug);
     const primaryUrl = primary?.strDrinkThumb;
     if (!primaryUrl) continue;
