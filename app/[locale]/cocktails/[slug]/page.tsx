@@ -7,6 +7,7 @@ import TasteGauges from "@/components/TasteGauges";
 import TasteCoach from "@/components/TasteCoach";
 import TasteProfile from "@/components/TasteProfile";
 import IngredientList from "@/components/IngredientList";
+import RecipeEnhancements from "@/components/RecipeEnhancements";
 import { cocktails, getCocktail } from "@/data/cocktails";
 import { glasses, methods, spirits, tools } from "@/data/reference";
 import { isLocale, locales, pick, ui } from "@/lib/i18n";
@@ -49,11 +50,12 @@ export default async function CocktailPage({
 
   return (
     <main className="container section">
+      <RecipeEnhancements locale={locale} name={name} />
       <p className="crumb">
         <Link href={`/${locale}/cocktails`}>{s.allCocktails}</Link>
       </p>
 
-      <article className="recipe">
+      <article className="recipe recipe-immersive">
         <header className="recipe-head">
           <div className="recipe-art">
             {c.image ? (
@@ -84,28 +86,28 @@ export default async function CocktailPage({
 
         <div className="recipe-body">
           <section>
-            <h2>{s.ingredients}</h2>
+            <h2 className="recipe-section-title">{s.ingredients}</h2>
             <IngredientList ingredients={c.ingredients} locale={locale} />
 
-            <h2>{s.tools}</h2>
+            <h2 className="recipe-section-title">{s.tools}</h2>
             <ul className="tools">
               {c.tools.map((tool) => (
                 <li key={tool}>{pick(tools[tool], locale)}</li>
               ))}
             </ul>
 
-            <h2>{s.garnish}</h2>
+            <h2 className="recipe-section-title">{s.garnish}</h2>
             <p>{pick(c.garnish, locale)}</p>
           </section>
 
           <section>
-            <h2>{s.taste}</h2>
+            <h2 className="recipe-section-title">{s.taste}</h2>
             <TasteProfile slug={c.slug} locale={locale} taste={c.taste} ingredients={c.ingredients.map((i) => pick(i.name, locale))} />
             <TasteGauges taste={c.taste} labels={tasteLabels(locale)} />
             <p className="note">{s.tasteNote}</p>
             <TasteCoach locale={locale} ingredients={c.ingredients.map((ingredient) => ingredient.name.en)} method={c.method} />
 
-            <h2>{s.method}</h2>
+            <h2 className="recipe-section-title">{s.method}</h2>
             <ol className="steps">
               {c.steps.map((step, idx) => (
                 <li key={idx}>{pick(step, locale)}</li>
