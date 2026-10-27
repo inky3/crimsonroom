@@ -48,6 +48,8 @@ export default async function LocaleLayout({
             <p className="photo-credit">
               {locale === "th" ? "ภาพเครื่องดื่ม: " : "Drink photography: "}
               <a href="https://www.thecocktaildb.com/" target="_blank" rel="noreferrer">TheCocktailDB</a>
+              {" · "}
+              <a href="https://www.absolutdrinks.com/en/drinks/shirley-temple/" target="_blank" rel="noreferrer">Absolut Drinks (Shirley Temple)</a>
             </p>
           </div>
         </footer>

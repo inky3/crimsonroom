@@ -27,6 +27,16 @@ type PhotoAsset = { src: string; alternatives: string[] };
 type ApiResponse = { drinks?: ApiDrink[] | null };
 type Assignment = { photos: Record<string, PhotoAsset> };
 
+// Manually verified exact-match photograph for Shirley Temple: ginger ale,
+// grenadine and lime, finished with a cherry (no mint). The source is credited
+// in the site footer.
+const curatedPhotoOverrides: Record<string, PhotoAsset> = {
+  "shirley-temple": {
+    src: "https://www.absolutdrinks.com/wp-content/uploads/recipe_shirley-temple_1x1_0ac67fd874d1a72a0a6f703d25e97d56.jpg",
+    alternatives: [],
+  },
+};
+
 let assignmentsPromise: Promise<Assignment> | null = null;
 
 function normalize(value: string): string {
@@ -46,6 +56,30 @@ function drinkIngredients(drink: ApiDrink): string {
 
 function recipeText(recipe: Cocktail): string {
   return `${recipe.name.en} ${recipe.slug.replace(/-/g, " ")} ${recipe.ingredients.map((ingredient) => ingredient.name.en).join(" ")}`;
+}
+
+function hasCompatiblePhoto(recipe: Cocktail, candidate: ApiDrink): boolean {
+  const recipeName = normalize(recipe.name.en);
+  const candidateName = normalize(candidate.strDrink ?? "");
+  if (recipeName && recipeName === candidateName) return true;
+
+  // Never offer an alcoholic drink photo for a zero-alcohol recipe.
+  if (recipe.category === "mocktail" && !/non.?alcoholic/i.test(String(candidate.strAlcoholic ?? ""))) {
+    return false;
+  }
+
+  const recipeNameWords = words(recipe.name.en + " " + recipe.slug.replace(/-/g, " "));
+  const candidateNameWords = words(candidate.strDrink ?? "");
+  const recipeIngredientWords = new Set(
+    words([...recipe.ingredients.map((ingredient) => ingredient.name.en), recipe.garnish.en].join(" ")),
+  );
+  const candidateIngredientWords = new Set(words(drinkIngredients(candidate)));
+  const titleOverlap = recipeNameWords.filter((word) => candidateNameWords.includes(word)).length;
+  const ingredientOverlap = [...recipeIngredientWords].filter((word) => candidateIngredientWords.has(word)).length;
+
+  // Accept a related title only when the drink's ingredients support it, or
+  // require at least two distinctive ingredient matches when titles differ.
+  return (titleOverlap >= 1 && ingredientOverlap >= 1) || ingredientOverlap >= 2;
 }
 
 function scoreMatch(recipe: Cocktail, candidate: ApiDrink): number {
@@ -114,6 +148,8 @@ async function buildAssignments(): Promise<Assignment> {
 
   // First pass: preserve exact-name photographs for recipes that have them.
   for (const recipe of recipes) {
+    // A specific, manually verified image takes precedence over the general API pool.
+    if (curatedPhotoOverrides[recipe.slug]) continue;
     const target = normalize(recipe.name.en);
     const exact = [...remaining.values()].find((candidate) => normalize(candidate.strDrink ?? "") === target);
     if (exact && exact.strDrinkThumb) {
@@ -129,14 +165,17 @@ async function buildAssignments(): Promise<Assignment> {
     return bSpecificity - aSpecificity || a.slug.localeCompare(b.slug);
   });
   for (const recipe of unresolved) {
+    if (curatedPhotoOverrides[recipe.slug]) continue;
     const best = [...remaining.values()].sort((a, b) => scoreMatch(recipe, b) - scoreMatch(recipe, a))[0];
-    if (best?.strDrinkThumb) {
+    if (best?.strDrinkThumb && hasCompatiblePhoto(recipe, best)) {
       assigned.set(recipe.slug, best);
       remaining.delete(best.strDrinkThumb);
     }
   }
 
-  const photos: Record<string, PhotoAsset> = {};
+  // Keep the curated, verified photographs first. Unknown custom recipes are
+  // left without a photo instead of being assigned a visibly wrong drink.
+  const photos: Record<string, PhotoAsset> = { ...curatedPhotoOverrides };
   for (const recipe of recipes) {
     const primary = assigned.get(recipe.slug);
     const primaryUrl = primary?.strDrinkThumb;
@@ -144,7 +183,8 @@ async function buildAssignments(): Promise<Assignment> {
     const alternatives: string[] = [];
     for (let i = 0; i < 2 && remaining.size > 0; i += 1) {
       const bestAlt = [...remaining.values()].sort((a, b) => scoreMatch(recipe, b) - scoreMatch(recipe, a))[0];
-      if (!bestAlt?.strDrinkThumb) break;
+      // A broken image should not be replaced with a different, unrelated drink.
+      if (!bestAlt?.strDrinkThumb || !hasCompatiblePhoto(recipe, bestAlt)) break;
       alternatives.push(bestAlt.strDrinkThumb);
       remaining.delete(bestAlt.strDrinkThumb);
     }
