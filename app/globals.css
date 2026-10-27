@@ -320,3 +320,14 @@ h2.small { font-size: 1.4rem; margin: 1.6rem 0 0.4rem; }
 .halloween-page .card-name { color: #f3e8f6; }
 .halloween-page .card-base { color: #b7a1be; }
 .halloween-page .halloween-intro { max-width: 44rem; color: #c5b4c9; margin: .8rem 0 2rem; }
+
+
+/* Ingredient unit and substitution controls */
+.ingredient-options { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.75rem; margin:0 0 .75rem; }
+.unit-switch { display:inline-flex; border:1px solid var(--line); }
+.unit-switch button { border:0; padding:.35rem .75rem; color:var(--muted); background:transparent; font:inherit; font-size:.85rem; cursor:pointer; }
+.unit-switch button[aria-pressed="true"] { color:var(--bone); background:var(--crimson); }
+.ingredient-row { align-items:flex-start; }
+.ingredient-copy { display:flex; flex-direction:column; min-width:0; }
+.ingredient-alternative { display:block; color:var(--muted); font-size:.85rem; line-height:1.45; margin-top:.2rem; }
+.halloween-page .section { padding-top:3.5rem; }
