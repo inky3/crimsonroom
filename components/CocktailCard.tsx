@@ -14,7 +14,7 @@ export default function CocktailCard({ item, locale }: { item: CardData; locale:
         glass={item.glass}
         color={item.color}
         garnishColor={item.garnishColor}
-        image={item.image}
+        garnish={item.garnish}
       />
       <span className="card-name">{item.name}</span>
       <span className="card-base">{item.baseLabel}</span>

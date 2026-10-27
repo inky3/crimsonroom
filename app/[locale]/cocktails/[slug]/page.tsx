@@ -66,7 +66,7 @@ export default async function CocktailPage({
               glass={c.glass}
               color={c.color}
               garnishColor={c.garnishColor}
-              image={c.image}
+              garnish={pick(c.garnish, locale)}
             />
           </div>
           <div className="recipe-intro">

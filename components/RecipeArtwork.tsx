@@ -8,7 +8,7 @@ type Props = {
   glass: GlassKey;
   color: string;
   garnishColor?: string;
-  image?: string;
+  garnish: string;
 };
 
 type GlassShape = {
@@ -41,35 +41,40 @@ function hashText(value: string): number {
   return hash >>> 0;
 }
 
-function garnishFor(slug: string): "lime" | "lemon" | "orange" | "mint" | "berry" | "pineapple" | "coffee" | "cherry" | "herb" {
-  const key = slug.toLowerCase();
-  if (/espresso|coffee|irish-coffee|white-russian|black-russian/.test(key)) return "coffee";
-  if (/pineapple|colada|pina|mango|banana|tropical|dragonfruit|dragon-fruit/.test(key)) return "pineapple";
-  if (/strawberry|cranberry|blueberry|blackberry|huckleberry|grape|berry|blood|vampire|pink-lady|cosmopolitan|shirley|diablo|candy-corn/.test(key)) return "berry";
-  if (/mint|mojito/.test(key)) return "mint";
-  if (/cherry|manhattan|old-fashioned|boulevardier|sangria|negroni/.test(key)) return "cherry";
-  if (/orange|sunrise|screwdriver|mimosa|americano|spritz|aperol/.test(key)) return "orange";
-  if (/lemon|collins|french-75|hot-toddy/.test(key)) return "lemon";
-  if (/lime|mule|gimlet|daiquiri|margarita|paloma|caipirinha|fizz|tonic|soda/.test(key)) return "lime";
-  if (/tea|thai|ginger|herbal|basil|sage/.test(key)) return "herb";
-  return "orange";
+type GarnishKind = "lime" | "lemon" | "orange" | "grapefruit" | "mint" | "berry" | "pineapple" | "coffee" | "cherry" | "herb" | "none";
+
+function garnishFor(garnishText: string): GarnishKind {
+  const text = garnishText.trim().toLowerCase();
+  if (!text || /^(none|no garnish|n\/?a|not applicable)$/i.test(text)) return "none";
+  if (/coffee bean|coffee beans|espresso bean|cocoa bean/.test(text)) return "coffee";
+  if (/mint|spearmint/.test(text)) return "mint";
+  if (/rosemary|thyme|sage|basil|herb|leaf|leaves/.test(text)) return "herb";
+  if (/cherry|cherries|maraschino/.test(text)) return "cherry";
+  if (/pineapple/.test(text)) return "pineapple";
+  if (/strawberry|blueberry|blackberry|raspberry|cranberry|huckleberry|grape|berry|berries/.test(text)) return "berry";
+  if (/grapefruit|pomelo/.test(text)) return "grapefruit";
+  if (/orange|tangerine|blood orange/.test(text)) return "orange";
+  if (/lemon/.test(text)) return "lemon";
+  if (/lime/.test(text)) return "lime";
+  return "none";
 }
 
 function Garnish({ kind, x, y, color }: { kind: ReturnType<typeof garnishFor>; x: number; y: number; color: string }) {
+  if (kind === "none") return null;
   if (kind === "coffee") return <g transform={`translate(${x} ${y}) rotate(-18)`}><ellipse rx="15" ry="21" fill="#3a201a" stroke="#d9b18b" strokeWidth="2" /><path d="M-4 -18 Q10 0 -4 18" fill="none" stroke="#d9b18b" strokeWidth="2.5" /></g>;
   if (kind === "mint" || kind === "herb") return <g transform={`translate(${x} ${y}) rotate(-20)`} fill={kind === "mint" ? "#6dbb75" : color} stroke="#d2efc7" strokeWidth="1.4"><path d="M0 15 C-28 2 -28 -20 -3 -26 C11 -13 11 2 0 15 Z" /><path d="M3 18 C2 -4 -9 -16 -17 -21" fill="none" /><path d="M4 13 C29 6 33 -13 17 -25 C2 -15 0 1 4 13 Z" /><path d="M4 15 C11 -2 18 -13 23 -19" fill="none" /></g>;
   if (kind === "berry" || kind === "cherry") return <g transform={`translate(${x} ${y})`}><path d="M-13 2 Q-5 -22 6 -21 M5 -2 Q13 -21 20 -18" fill="none" stroke="#7dbb70" strokeWidth="3" strokeLinecap="round" /><circle cx="-13" cy="6" r="12" fill={kind === "cherry" ? "#d9344e" : "#8f3156"} stroke="#ffc0b9" strokeWidth="1.5" /><circle cx="8" cy="9" r="13" fill={kind === "cherry" ? "#a91f38" : "#bd4b78"} stroke="#ffd1da" strokeWidth="1.5" /><circle cx="-17" cy="1" r="3" fill="#fff" opacity=".45" /><circle cx="4" cy="4" r="3" fill="#fff" opacity=".45" /></g>;
   if (kind === "pineapple") return <g transform={`translate(${x} ${y}) rotate(18)`}><path d="M0 -22 L-17 -42 L-5 -18 L-2 -45 L7 -18 L23 -35 L11 -13 Z" fill="#6cb878" stroke="#b6df92" strokeWidth="1.5" /><path d="M-23 -8 L17 -16 L25 12 L-15 22 Z" fill="#e2b94f" stroke="#ffe8a2" strokeWidth="2" /><path d="M-18 -5 L21 11 M-11 18 L12 -12 M-4 20 L19 -8 M-20 7 L17 -13" stroke="#ac8437" strokeWidth="1.4" /></g>;
-  const citrus = kind === "orange" ? "#f19a43" : kind === "lemon" ? "#f2d96a" : "#a3cf66";
-  const rind = kind === "orange" ? "#ffd39a" : kind === "lemon" ? "#fff1ab" : "#d8f6a6";
+  const citrus = kind === "orange" ? "#f19a43" : kind === "lemon" ? "#f2d96a" : kind === "grapefruit" ? "#ea8e9f" : "#a3cf66";
+  const rind = kind === "orange" ? "#ffd39a" : kind === "lemon" ? "#fff1ab" : kind === "grapefruit" ? "#ffd0d5" : "#d8f6a6";
   return <g transform={`translate(${x} ${y}) rotate(-12)`}><circle r="28" fill={citrus} stroke={rind} strokeWidth="5" /><circle r="21" fill="none" stroke={rind} strokeWidth="2" /><path d="M0 0 L0 -20 M0 0 L17 -10 M0 0 L17 11 M0 0 L0 20 M0 0 L-17 11 M0 0 L-17 -10" stroke={rind} strokeWidth="2.5" strokeLinecap="round" /><circle r="3.5" fill={rind} /></g>;
 }
 
-export default function RecipeArtwork({ mode, slug, name, category, glass, color, garnishColor }: Props) {
+export default function RecipeArtwork({ mode, slug, name, category, glass, color, garnishColor, garnish: garnishText }: Props) {
   const shape = shapes[glass === "beer" ? "highball" : glass];
   const id = slug.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const hash = hashText(slug);
-  const garnish = garnishFor(slug);
+  const garnish = garnishFor(garnishText);
   const accent = garnishColor || color;
   const liquidTop = shape.liquidTop + (hash % 19) - 9;
   const fillId = `drink-fill-${id}`;

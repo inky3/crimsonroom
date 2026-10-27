@@ -56,7 +56,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
           <Link href={`/${locale}/cocktails/${hero.slug}`} className="hero-glass" aria-label={pick(hero.name, locale)}>
-            <RecipeArtwork mode="detail" slug={hero.slug} name={pick(hero.name, locale)} category={hero.category} glass={hero.glass} color={hero.color} garnishColor={hero.garnishColor} image={hero.image} />
+            <RecipeArtwork mode="detail" slug={hero.slug} name={pick(hero.name, locale)} category={hero.category} glass={hero.glass} color={hero.color} garnishColor={hero.garnishColor} garnish={pick(hero.garnish, locale)} />
           </Link>
         </div>
       </section>
