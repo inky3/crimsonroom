@@ -45,12 +45,7 @@ export default async function LocaleLayout({
         <footer className="site-footer">
           <div className="container">
             <p>{ui[locale].responsibly}</p>
-            <p className="photo-credit">
-              {locale === "th" ? "ภาพเครื่องดื่ม: " : "Drink photography: "}
-              <a href="https://www.thecocktaildb.com/" target="_blank" rel="noreferrer">TheCocktailDB</a>
-              {" · "}
-              <a href="https://www.absolutdrinks.com/en/drinks/shirley-temple/" target="_blank" rel="noreferrer">Absolut Drinks (Shirley Temple)</a>
-            </p>
+
           </div>
         </footer>
       </body>

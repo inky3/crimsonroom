@@ -523,7 +523,7 @@ main .container.section > h2 { animation:page-rise-in .55s var(--ease-out) both;
 .alcohol-free-section .eyebrow { color: #a9c9ae; }
 .alcohol-free-action { margin-top: 1.4rem; }
 
-/* Distinct recipe-specific illustrated artwork; exact photos remain supported where supplied. */
+/* Recipe-specific vector artwork used consistently throughout the catalogue. */
 .card-art.recipe-artwork-svg {
   display: block;
   width: 100%;
@@ -544,27 +544,6 @@ main .container.section > h2 { animation:page-rise-in .55s var(--ease-out) both;
   background: var(--surface);
   filter: drop-shadow(0 1.2rem 2rem rgba(157, 18, 48, 0.32));
 }
-.recipe-photo {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 4px;
-  background: var(--surface);
-}
 .alcohol-free-nav:hover { color: #b3d2b8; }
 
 
-.recipe-photo-loading {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-radius: 4px;
-  background:
-    radial-gradient(circle at 50% 46%, rgba(157, 18, 48, .24), transparent 62%),
-    linear-gradient(135deg, #170d10, #080708 58%, #1a0c12);
-}
-.card-art.recipe-photo-loading { height: 10.5rem; }
-.recipe-art .recipe-photo-loading { aspect-ratio: 5 / 6; width: 100%; }
-.photo-credit { margin-top: .35rem; font-size: .78rem; opacity: .72; }
-.photo-credit a { text-decoration: underline; text-underline-offset: 2px; }

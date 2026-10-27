@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import GlassArt from "./GlassArt";
 import type { CategoryKey, GlassKey } from "@/lib/types";
 
 type Props = {
@@ -14,26 +10,6 @@ type Props = {
   garnishColor?: string;
   image?: string;
 };
-
-type PhotoAsset = { src: string; alternatives: string[] };
-let photoMapPromise: Promise<Record<string, PhotoAsset>> | null = null;
-
-function getPhotoMap(): Promise<Record<string, PhotoAsset>> {
-  if (!photoMapPromise) {
-    photoMapPromise = fetch("/api/recipe-photos", { cache: "force-cache" })
-      .then(async (response) => {
-        if (!response.ok) throw new Error("Could not load cocktail photos");
-        const payload = (await response.json()) as { photos?: Record<string, PhotoAsset> };
-        if (!payload.photos) throw new Error("Cocktail photo response was empty");
-        return payload.photos;
-      })
-      .catch((error) => {
-        photoMapPromise = null;
-        throw error;
-      });
-  }
-  return photoMapPromise;
-}
 
 type GlassShape = {
   body: string;
@@ -89,59 +65,7 @@ function Garnish({ kind, x, y, color }: { kind: ReturnType<typeof garnishFor>; x
   return <g transform={`translate(${x} ${y}) rotate(-12)`}><circle r="28" fill={citrus} stroke={rind} strokeWidth="5" /><circle r="21" fill="none" stroke={rind} strokeWidth="2" /><path d="M0 0 L0 -20 M0 0 L17 -10 M0 0 L17 11 M0 0 L0 20 M0 0 L-17 11 M0 0 L-17 -10" stroke={rind} strokeWidth="2.5" strokeLinecap="round" /><circle r="3.5" fill={rind} /></g>;
 }
 
-export default function RecipeArtwork({ mode, slug, name, category, glass, color, garnishColor, image }: Props) {
-  const [photo, setPhoto] = useState(image ?? "");
-  const [alternatives, setAlternatives] = useState<string[]>([]);
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [resolved, setResolved] = useState(Boolean(image));
-  const [imageFailed, setImageFailed] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    setPhoto(image ?? "");
-    setAlternatives([]);
-    setPhotoIndex(0);
-    setResolved(Boolean(image));
-    setImageFailed(false);
-
-    if (image) return () => { active = false; };
-
-    getPhotoMap()
-      .then((map) => {
-        if (!active) return;
-        setPhoto(map[slug]?.src ?? "");
-        setAlternatives(map[slug]?.alternatives ?? []);
-        setResolved(true);
-      })
-      .catch(() => {
-        if (active) setResolved(true);
-      });
-
-    return () => { active = false; };
-  }, [slug, image]);
-
-  const sources = (image ? [image] : [photo, ...alternatives]).filter(Boolean);
-  const activePhoto = sources[photoIndex];
-  if (activePhoto && !imageFailed) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={activePhoto}
-        alt={name}
-        className={mode === "card" ? "card-art photo" : "recipe-photo"}
-        loading={mode === "card" ? "lazy" : "eager"}
-        onError={() => {
-          if (photoIndex < sources.length - 1) setPhotoIndex((index) => index + 1);
-          else setImageFailed(true);
-        }}
-      />
-    );
-  }
-
-  if (!resolved && !imageFailed) {
-    return <div aria-label={`Loading real photo for ${name}`} className={mode === "card" ? "card-art recipe-photo-loading" : "recipe-photo recipe-photo-loading"} />;
-  }
-
+export default function RecipeArtwork({ mode, slug, name, category, glass, color, garnishColor }: Props) {
   const shape = shapes[glass === "beer" ? "highball" : glass];
   const id = slug.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const hash = hashText(slug);
