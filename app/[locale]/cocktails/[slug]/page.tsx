@@ -6,6 +6,7 @@ import GlassArt from "@/components/GlassArt";
 import TasteGauges from "@/components/TasteGauges";
 import TasteCoach from "@/components/TasteCoach";
 import TasteProfile from "@/components/TasteProfile";
+import IngredientList from "@/components/IngredientList";
 import { cocktails, getCocktail } from "@/data/cocktails";
 import { glasses, methods, spirits, tools } from "@/data/reference";
 import { isLocale, locales, pick, ui } from "@/lib/i18n";
@@ -80,14 +81,7 @@ export default async function CocktailPage({
         <div className="recipe-body">
           <section>
             <h2>{s.ingredients}</h2>
-            <ul className="ingredients">
-              {c.ingredients.map((i, idx) => (
-                <li key={idx}>
-                  <span className="amount">{pick(i.amount, locale)}</span>
-                  <span>{pick(i.name, locale)}</span>
-                </li>
-              ))}
-            </ul>
+            <IngredientList ingredients={c.ingredients} locale={locale} />
 
             <h2>{s.tools}</h2>
             <ul className="tools">
