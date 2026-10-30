@@ -195,5 +195,10 @@ export const pantryNeeds: Record<string, Need[]> = {
   "strawberry-lime-fizz": ["pepsi-strawberry-cream", "lime", "soda"],
   "strawberry-vanilla-cloud": ["pepsi-strawberry-cream", "cream", "vanilla-syrup"],
   "strawberry-coconut-pop": ["pepsi-strawberry-cream", "coconut-milk", "lime"],
+  "grapefruit-salt-spritz": ["grapefruit-soda", "lime"],
+  "pineapple-ginger-fizz": ["pineapple-juice", "ginger-beer", "lime"],
+  "honey-lemon-soda": ["honey", "lemon", "soda"],
+  "orange-vanilla-soda": ["orange-juice", "cream", "vanilla-syrup", "soda"],
+  "peach-mint-cooler": ["peach-juice", "lemon", "mint", "soda"],
 
 };
