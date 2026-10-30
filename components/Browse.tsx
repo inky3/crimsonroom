@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import CocktailCard from "./CocktailCard";
 import type { CardData } from "@/lib/view";
 import type { Locale, SpiritKey, TasteKey } from "@/lib/types";
@@ -33,9 +34,30 @@ export default function Browse({
   labels: Labels;
   locale: Locale;
 }) {
+  const pathname = usePathname();
   const [query, setQuery] = useState("");
   const [base, setBase] = useState<SpiritKey | "all">("all");
   const [sort, setSort] = useState<Sort>("name");
+  const [restored, setRestored] = useState(false);
+  const storageKey = "browse-state:" + pathname;
+
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(storageKey);
+      if (saved) {
+        const state = JSON.parse(saved) as { query?: string; base?: SpiritKey | "all"; sort?: Sort };
+        if (typeof state.query === "string") setQuery(state.query);
+        if (typeof state.base === "string" && (state.base === "all" || items.some((item) => item.baseKey === state.base))) setBase(state.base);
+        if (typeof state.sort === "string" && ["name", "sweet", "sour", "bitter", "rough", "strength"].includes(state.sort)) setSort(state.sort as Sort);
+      }
+    } catch { /* Ignore unavailable or invalid saved state. */ }
+    setRestored(true);
+  }, [storageKey, items]);
+
+  useEffect(() => {
+    if (!restored) return;
+    try { sessionStorage.setItem(storageKey, JSON.stringify({ query, base, sort })); } catch { /* Filtering still works without storage. */ }
+  }, [storageKey, query, base, sort, restored]);
 
   // Only offer base spirits that exist in this list.
   const bases = useMemo(() => {

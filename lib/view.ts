@@ -14,7 +14,8 @@ export type CardData = {
   glass: GlassKey;
   color: string;
   garnishColor?: string;
-  image?: string;
+  /** The exact garnish from the recipe, used to keep artwork accurate. */
+  garnish: string;
   taste: Taste;
 };
 
@@ -29,7 +30,7 @@ export function toCard(c: Cocktail, locale: Locale): CardData {
     glass: c.glass,
     color: c.color,
     garnishColor: c.garnishColor,
-    image: c.image,
+    garnish: pick(c.garnish, locale),
     taste: c.taste,
   };
 }

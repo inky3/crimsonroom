@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CocktailCard from "@/components/CocktailCard";
-import GlassArt from "@/components/GlassArt";
+import RecipeArtwork from "@/components/RecipeArtwork";
 import TasteGauges from "@/components/TasteGauges";
 import TasteCoach from "@/components/TasteCoach";
 import TasteProfile from "@/components/TasteProfile";
+import IngredientList from "@/components/IngredientList";
+import RecipeEnhancements from "@/components/RecipeEnhancements";
 import { cocktails, getCocktail } from "@/data/cocktails";
 import { glasses, methods, spirits, tools } from "@/data/reference";
 import { isLocale, locales, pick, ui } from "@/lib/i18n";
@@ -48,19 +50,24 @@ export default async function CocktailPage({
 
   return (
     <main className="container section">
+      <RecipeEnhancements locale={locale} name={name} />
       <p className="crumb">
         <Link href={`/${locale}/cocktails`}>{s.allCocktails}</Link>
       </p>
 
-      <article className="recipe">
+      <article className="recipe recipe-immersive">
         <header className="recipe-head">
           <div className="recipe-art">
-            {c.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={c.image} alt={name} />
-            ) : (
-              <GlassArt glass={c.glass} color={c.color} garnish={c.garnishColor} id="detail" label={name} />
-            )}
+            <RecipeArtwork
+              mode="detail"
+              slug={c.slug}
+              name={name}
+              category={c.category}
+              glass={c.glass}
+              color={c.color}
+              garnishColor={c.garnishColor}
+              garnish={pick(c.garnish, locale)}
+            />
           </div>
           <div className="recipe-intro">
             <h1>{name}</h1>
@@ -71,43 +78,40 @@ export default async function CocktailPage({
                 {s.glass}: {pick(glasses[c.glass], locale)}
               </span>
             </p>
-            <h2 className="small">{s.story}</h2>
-            <p className="story">{pick(c.story, locale)}</p>
-            <p className="note">{c.origin === "told" ? s.originTold : s.originHouse}</p>
+            {pick(c.story, locale).trim() && (
+              <>
+                <h2 className="small">{s.story}</h2>
+                <p className="story">{pick(c.story, locale)}</p>
+                <p className="note">{c.origin === "told" ? s.originTold : s.originHouse}</p>
+              </>
+            )}
           </div>
         </header>
 
         <div className="recipe-body">
           <section>
-            <h2>{s.ingredients}</h2>
-            <ul className="ingredients">
-              {c.ingredients.map((i, idx) => (
-                <li key={idx}>
-                  <span className="amount">{pick(i.amount, locale)}</span>
-                  <span>{pick(i.name, locale)}</span>
-                </li>
-              ))}
-            </ul>
+            <h2 className="recipe-section-title">{s.ingredients}</h2>
+            <IngredientList ingredients={c.ingredients} locale={locale} />
 
-            <h2>{s.tools}</h2>
+            <h2 className="recipe-section-title">{s.tools}</h2>
             <ul className="tools">
               {c.tools.map((tool) => (
                 <li key={tool}>{pick(tools[tool], locale)}</li>
               ))}
             </ul>
 
-            <h2>{s.garnish}</h2>
+            <h2 className="recipe-section-title">{s.garnish}</h2>
             <p>{pick(c.garnish, locale)}</p>
           </section>
 
           <section>
-            <h2>{s.taste}</h2>
+            <h2 className="recipe-section-title">{s.taste}</h2>
             <TasteProfile slug={c.slug} locale={locale} taste={c.taste} ingredients={c.ingredients.map((i) => pick(i.name, locale))} />
             <TasteGauges taste={c.taste} labels={tasteLabels(locale)} />
             <p className="note">{s.tasteNote}</p>
             <TasteCoach locale={locale} ingredients={c.ingredients.map((ingredient) => ingredient.name.en)} method={c.method} />
 
-            <h2>{s.method}</h2>
+            <h2 className="recipe-section-title">{s.method}</h2>
             <ol className="steps">
               {c.steps.map((step, idx) => (
                 <li key={idx}>{pick(step, locale)}</li>

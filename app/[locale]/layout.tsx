@@ -45,6 +45,7 @@ export default async function LocaleLayout({
         <footer className="site-footer">
           <div className="container">
             <p>{ui[locale].responsibly}</p>
+
           </div>
         </footer>
       </body>

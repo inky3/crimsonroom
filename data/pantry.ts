@@ -11,6 +11,7 @@ export type PantryKey =
   | "prosecco" | "beer" | "bitters"
   | "soda" | "tonic" | "ginger-beer" | "ginger-ale" | "cola" | "lemon-lime-soda" | "grapefruit-soda"
   | "coconut-cream" | "cream" | "grenadine" | "honey" | "yogurt-drink" | "coffee"
+  | "pepsi-strawberry-cream" | "vanilla-ice-cream" | "vanilla-syrup" | "coconut-milk"
   | "lime" | "lemon" | "orange-juice" | "pineapple-juice" | "cranberry-juice" | "lychee-juice" | "peach-juice" | "mint";
 
 /** One ingredient, or a list where any one of them will do. */
@@ -63,6 +64,10 @@ export const pantryGroups: { key: string; title: Text; items: { key: PantryKey; 
       { key: "grapefruit-soda", label: t("Grapefruit soda", "โซดารสเกรปฟรุต") },
       { key: "coconut-cream", label: t("Coconut cream", "ครีมมะพร้าว") },
       { key: "cream", label: t("Fresh cream", "ครีมสด") },
+      { key: "pepsi-strawberry-cream", label: t("Pepsi Strawberry & Cream", "เป๊ปซี่สตรอว์เบอร์รีแอนด์ครีม") },
+      { key: "vanilla-ice-cream", label: t("Vanilla ice cream", "ไอศกรีมวานิลลา") },
+      { key: "vanilla-syrup", label: t("Vanilla syrup", "ไซรัปวานิลลา") },
+      { key: "coconut-milk", label: t("Coconut milk", "กะทิ") },
       { key: "grenadine", label: t("Grenadine", "เกรนาดีน") },
       { key: "honey", label: t("Honey", "น้ำผึ้ง") },
       { key: "yogurt-drink", label: t("Yogurt drink (like Yakult)", "เครื่องดื่มโยเกิร์ต (เช่น ยาคูลท์)") },
@@ -138,4 +143,62 @@ export const pantryNeeds: Record<string, Need[]> = {
   "sea-breeze": ["vodka", "cranberry-juice", "grapefruit-soda"],
   screwdriver: ["vodka", "orange-juice"],
   "vodka-soda": ["vodka", "soda", "lime"],
+
+  "beetlejuice-margarita": ["tequila", "triple-sec", "lime"],
+  "strawberry-diablo": ["vodka", "triple-sec", "lime"],
+  "autumn-old-fashioned": ["whisky", "bitters"],
+  "dragon-fruit-mojito": ["rum-white", "lime", "mint", "soda"],
+
+  "candy-corn-martini": ["vodka", "pineapple-juice"],
+  "spider-web-cosmopolitan": ["vodka", "triple-sec", "lime", "cranberry-juice"],
+  "black-grape-zombie-mojito": ["vodka", "lime", "mint", "soda"],
+  "lime-crush": ["vodka","triple-sec","lemon-lime-soda","lime"],
+  "bay-breeze": ["vodka","pineapple-juice","cranberry-juice"],
+  "pink-lady-lemonade": ["vodka","rum-white","cranberry-juice","lemon-lime-soda","lemon"],
+  "watermelon-mojito": ["rum-white","lime","mint","soda"],
+  "blueberry-rum-crush": ["rum-white","mint","soda"],
+  "blackberry-mojito": ["rum-white","lime","mint","soda"],
+  "white-peach-martini": ["vodka","peach-juice","lime"],
+  "key-lime-colada": ["rum-white","lime","coconut-cream","pineapple-juice"],
+  "strawberry-pina-colada": ["rum-white","coconut-cream","pineapple-juice"],
+  "mango-colada": ["rum-white","coconut-cream","pineapple-juice"],
+  "banana-colada-orange": ["rum-white","coconut-cream","orange-juice"],
+  "watermelon-colada": ["rum-white","coconut-cream","pineapple-juice"],
+  "blue-lagoon-public": ["vodka","curacao","lemon-lime-soda"],
+  "dragonfruit-martini": ["vodka","lime"],
+  "sex-on-the-beach-public": ["vodka","peach-juice","orange-juice","cranberry-juice"],
+
+  "classic-paloma": ["tequila", "lime", "grapefruit-soda", "soda"],
+  "classic-manhattan": ["whisky", "vermouth-sweet", "bitters"],
+  "blue-hawaii": ["vodka", "rum-white", "curacao", "pineapple-juice", "lemon"],
+  "honey-deuce": ["vodka", "lemon"],
+  "southern-mule": ["whisky", "lime", "ginger-beer"],
+
+
+  "fig-margarita": ["tequila", "triple-sec", "lime"],
+  "apple-cider-margarita": ["tequila", "triple-sec", "lime"],
+  "tropical-island-jungle-juice": ["vodka", "rum-white", "orange-juice", "lemon", "lime", "pineapple-juice", "lemon-lime-soda"],
+  "chuckle-hurricane": ["rum-white", "rum-aged", "orange-juice", "lime", "grenadine"],
+  "everyday-long-island-iced-tea": ["vodka", "gin", "rum-white", "tequila", "lemon", "cola"],
+
+
+  "witchs-web": ["vodka", "lemon", "triple-sec"],
+  "blood-injection-mimosa": ["prosecco"],
+  "beetlejuice-potion": ["rum-white", "curacao", "pineapple-juice", "orange-juice"],
+  "halloween-old-fashioned": ["whisky", "bitters"],
+
+  "spooky-pumpkin-margarita": ["tequila","triple-sec","lime"],
+  "huckleberry-vampire-margarita": ["tequila","triple-sec","lime"],
+  "frankenstein-elixir": ["lime","rum-white"],
+
+  "strawberry-cream-float": ["pepsi-strawberry-cream", "vanilla-ice-cream"],
+  "strawberry-lime-fizz": ["pepsi-strawberry-cream", "lime", "soda"],
+  "strawberry-vanilla-cloud": ["pepsi-strawberry-cream", "cream", "vanilla-syrup"],
+  "strawberry-coconut-pop": ["pepsi-strawberry-cream", "coconut-milk", "lime"],
+  "grapefruit-salt-spritz": ["grapefruit-soda", "lime"],
+  "pineapple-ginger-fizz": ["pineapple-juice", "ginger-beer", "lime"],
+  "honey-lemon-soda": ["honey", "lemon", "soda"],
+  "orange-vanilla-soda": ["orange-juice", "cream", "vanilla-syrup", "soda"],
+  "peach-mint-cooler": ["peach-juice", "lemon", "mint", "soda"],
+
 };
