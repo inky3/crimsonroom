@@ -11,6 +11,7 @@ export type PantryKey =
   | "prosecco" | "beer" | "bitters"
   | "soda" | "tonic" | "ginger-beer" | "ginger-ale" | "cola" | "lemon-lime-soda" | "grapefruit-soda"
   | "coconut-cream" | "cream" | "grenadine" | "honey" | "yogurt-drink" | "coffee"
+  | "pepsi-strawberry-cream" | "vanilla-ice-cream" | "vanilla-syrup" | "coconut-milk"
   | "lime" | "lemon" | "orange-juice" | "pineapple-juice" | "cranberry-juice" | "lychee-juice" | "peach-juice" | "mint";
 
 /** One ingredient, or a list where any one of them will do. */
@@ -63,6 +64,10 @@ export const pantryGroups: { key: string; title: Text; items: { key: PantryKey; 
       { key: "grapefruit-soda", label: t("Grapefruit soda", "โซดารสเกรปฟรุต") },
       { key: "coconut-cream", label: t("Coconut cream", "ครีมมะพร้าว") },
       { key: "cream", label: t("Fresh cream", "ครีมสด") },
+      { key: "pepsi-strawberry-cream", label: t("Pepsi Strawberry & Cream", "เป๊ปซี่สตรอว์เบอร์รีแอนด์ครีม") },
+      { key: "vanilla-ice-cream", label: t("Vanilla ice cream", "ไอศกรีมวานิลลา") },
+      { key: "vanilla-syrup", label: t("Vanilla syrup", "ไซรัปวานิลลา") },
+      { key: "coconut-milk", label: t("Coconut milk", "กะทิ") },
       { key: "grenadine", label: t("Grenadine", "เกรนาดีน") },
       { key: "honey", label: t("Honey", "น้ำผึ้ง") },
       { key: "yogurt-drink", label: t("Yogurt drink (like Yakult)", "เครื่องดื่มโยเกิร์ต (เช่น ยาคูลท์)") },
@@ -186,5 +191,9 @@ export const pantryNeeds: Record<string, Need[]> = {
   "huckleberry-vampire-margarita": ["tequila","triple-sec","lime"],
   "frankenstein-elixir": ["lime","rum-white"],
 
+  "strawberry-cream-float": ["pepsi-strawberry-cream", "vanilla-ice-cream"],
+  "strawberry-lime-fizz": ["pepsi-strawberry-cream", "lime", "soda"],
+  "strawberry-vanilla-cloud": ["pepsi-strawberry-cream", "cream", "vanilla-syrup"],
+  "strawberry-coconut-pop": ["pepsi-strawberry-cream", "coconut-milk", "lime"],
 
 };
