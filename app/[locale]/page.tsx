@@ -70,9 +70,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      <section className="container section alcohol-free-section" aria-labelledby="alcohol-free-heading">
+      <section className="container section alcohol-free-section" aria-labelledby="mocktails-heading">
         <p className="eyebrow">{locale === "th" ? "รสชาติและเทคนิค โดยไม่มีแอลกอฮอล์" : "All the craft, none of the alcohol"}</p>
-        <h2 id="alcohol-free-heading">{locale === "th" ? "เครื่องดื่มไม่มีแอลกอฮอล์" : "Alcohol Free"}</h2>
+        <h2 id="mocktails-heading">{locale === "th" ? "ม็อกเทล" : "Mocktails"}</h2>
         <p className="muted">{locale === "th" ? "สูตรม็อกเทลสำหรับฝึกทักษะบาร์เทนเดอร์และเพลิดเพลินได้ทุกเวลา" : "Explore zero-alcohol drinks built around flavour, balance and bartending technique."}</p>
         <div className="grid">
           {cocktails.filter((c) => c.category === "mocktail").slice(0, 5).map((c) => (
@@ -80,8 +80,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           ))}
         </div>
         <div className="actions alcohol-free-action">
-          <Link href={`/${locale}/alcohol-free`} className="btn primary">
-            {locale === "th" ? "ดูสูตรทั้งหมด" : "Explore all alcohol-free recipes"} ↗
+          <Link href={`/${locale}/mocktails`} className="btn primary">
+            {locale === "th" ? "ดูสูตรม็อกเทลทั้งหมด" : "Explore all mocktails"} ↗
           </Link>
         </div>
       </section>
