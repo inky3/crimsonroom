@@ -29,7 +29,7 @@ export default function Header({ locale }: { locale: Locale }) {
         </button>
         <nav id="primary-navigation" className={`nav ${menuOpen ? "nav-open" : ""}`} aria-label="Main">
           <Link href={`/${locale}/cocktails`} onClick={closeMenu}>{s.navCocktails}</Link>
-          <Link href={`/${locale}/alcohol-free`} className="alcohol-free-nav" onClick={closeMenu}>{locale === "th" ? "ไม่มีแอลกอฮอล์" : "Alcohol Free"}</Link>
+          <Link href={`/${locale}/mocktails`} className="alcohol-free-nav" onClick={closeMenu}>{locale === "th" ? "ม็อกเทล" : "Mocktails"}</Link>
           <Link href={`/${locale}/halloween`} className="halloween-nav" onClick={closeMenu}>🎃 Halloween</Link>
           <Link href={`/${locale}/pantry`} onClick={closeMenu}>{s.navPantry}</Link>
           <Link href={`/${locale}/spy-soju`} onClick={closeMenu}>{s.navSpy}</Link>
